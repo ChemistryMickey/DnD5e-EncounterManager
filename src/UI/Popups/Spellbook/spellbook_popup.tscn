@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://b4io5pwywkwt0"]
+
+[node name="SpellbookPopup" type="Window"]
+title = "Spellbook"
+initial_position = 2
+size = Vector2i(600, 600)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabBar" type="TabContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="All Spells" type="ScrollContainer" parent="HBoxContainer/TabBar"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TabBar/All Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="By Class" type="ScrollContainer" parent="HBoxContainer/TabBar"]
+visible = false
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TabBar/By Class"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Info" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Buttons" type="HBoxContainer" parent="HBoxContainer/Info"]
+layout_mode = 2
+alignment = 2
+
+[node name="AddSpell" type="Button" parent="HBoxContainer/Info/Buttons"]
+layout_mode = 2
+text = "Add Spell"
+
+[node name="RemoveSpell" type="Button" parent="HBoxContainer/Info/Buttons"]
+layout_mode = 2
+text = "Remove Spell"
+
+[node name="Name" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Spell Name"
+editable = false
+
+[node name="Level" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Level"
+editable = false
+
+[node name="School" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "School"
+editable = false
+
+[node name="Ritual" type="CheckButton" parent="HBoxContainer/Info"]
+layout_mode = 2
+tooltip_text = "If true, this spell can be cast as a ritual"
+toggle_mode = false
+text = "Ritual"
+
+[node name="Casting Time" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Casting Time"
+editable = false
+
+[node name="Range" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Range"
+editable = false
+
+[node name="Components" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Components"
+editable = false
+
+[node name="Duration" type="LineEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+placeholder_text = "Duration"
+editable = false
+
+[node name="Description" type="TextEdit" parent="HBoxContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Description"
+editable = false
+wrap_mode = 1
