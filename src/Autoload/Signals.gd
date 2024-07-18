@@ -6,7 +6,7 @@ extends Node
 #signal Button_Hover(text_out)
 #
 signal show_notes()
-#signal show_options()
+signal show_spellbook()
 #signal show_item_database()
 #signal show_confirmation(confirmation_str)
 #

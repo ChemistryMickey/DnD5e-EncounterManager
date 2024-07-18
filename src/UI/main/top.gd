@@ -18,8 +18,8 @@ func _shortcut_input(event: InputEvent) -> void:
 		load_sheet()
 	#if event.is_action_pressed("quit"):
 		#Signals.emit_signal("show_confirmation", "quit_to_desktop")
-	#if event.is_action_pressed("options"):
-		#Signals.emit_signal("show_options")
+	if event.is_action_pressed("spellbook"):
+		Signals.emit_signal("show_spellbook")
 	elif event.is_action_pressed("notes"):
 		Signals.emit_signal("show_notes")
 	#if event.is_action_pressed("new_character"):
