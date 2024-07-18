@@ -1,0 +1,248 @@
+[gd_scene load_steps=7 format=3 uid="uid://cps0o1mrwns0y"]
+
+[ext_resource type="Script" path="res://src/UI/main/top.gd" id="1_y8af6"]
+[ext_resource type="Script" path="res://src/UI/ScratchWindow/ScratchWindow.gd" id="2_kj7xx"]
+[ext_resource type="Script" path="res://src/UI/ScratchWindow/ScratchText.gd" id="2_kuxvr"]
+
+[sub_resource type="Animation" id="Animation_r16hr"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_cptja"]
+resource_name = "flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.117647), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_swreb"]
+_data = {
+"RESET": SubResource("Animation_r16hr"),
+"flash": SubResource("Animation_cptja")
+}
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_y8af6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="File" type="MenuButton" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+text = "File"
+flat = false
+item_count = 3
+popup/item_0/text = "Save     (Ctrl + S)"
+popup/item_0/id = 0
+popup/item_1/text = "Load    (Ctrl + O)"
+popup/item_1/id = 1
+popup/item_2/text = "Quit     (Ctrl + Q)"
+popup/item_2/id = 2
+
+[node name="Edit" type="MenuButton" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+text = "Edit"
+flat = false
+item_count = 1
+popup/item_0/text = "Define PC"
+popup/item_0/id = 0
+
+[node name="Options" type="MenuButton" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+text = "Options"
+flat = false
+item_count = 6
+popup/item_0/text = "Enable Dice Roller"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Enable Utilities Tray"
+popup/item_1/checkable = 1
+popup/item_1/id = 3
+popup/item_2/text = ""
+popup/item_2/id = 4
+popup/item_2/separator = true
+popup/item_3/text = "Show Scratch Popup        (Ctrl + T)"
+popup/item_3/id = 1
+popup/item_4/text = "Show Spellbook Popup    (Ctrl + P)"
+popup/item_4/id = 2
+popup/item_5/text = "Show Help"
+popup/item_5/id = 5
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ControlButtons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.65
+color = Color(1, 1, 1, 0.215686)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ControlButtons/ColorRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Initiative:"
+
+[node name="IncrementInitiative" type="Button" parent="VBoxContainer/ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "+1"
+
+[node name="DecrementInitiative" type="Button" parent="VBoxContainer/ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "-1"
+
+[node name="Sort" type="MenuButton" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sort By"
+flat = false
+item_count = 3
+popup/item_0/text = "Initiative"
+popup/item_0/id = 0
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+popup/item_2/text = "Health"
+popup/item_2/id = 2
+
+[node name="Spacer" type="Control" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.56
+
+[node name="AddPC" type="MenuButton" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+text = "Add PC"
+flat = false
+item_count = 2
+popup/item_0/text = ""
+popup/item_0/id = 100
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Define PC"
+popup/item_1/id = 101
+
+[node name="AddNPC" type="Button" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+text = "Add NPC"
+
+[node name="AddNonActor" type="Button" parent="VBoxContainer/ControlButtons"]
+layout_mode = 2
+tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
+text = "Add Non-Actor"
+
+[node name="InfoOptions" type="VSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Info" type="ScrollContainer" parent="VBoxContainer/InfoOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InfoOptions/Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionTray" type="ScrollContainer" parent="VBoxContainer/InfoOptions"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InfoOptions/OptionTray"]
+layout_mode = 2
+
+[node name="SaveFlash" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SaveFlash"]
+libraries = {
+"": SubResource("AnimationLibrary_swreb")
+}
+
+[node name="SaveFile" type="FileDialog" parent="."]
+initial_position = 2
+size = Vector2i(644, 600)
+dialog_hide_on_ok = true
+access = 2
+filters = PackedStringArray("*.json")
+
+[node name="LoadFile" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(600, 600)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+
+[node name="ScratchWindow" type="Window" parent="."]
+handle_input_locally = false
+title = "Scratch Window"
+position = Vector2i(350, 150)
+size = Vector2i(350, 350)
+visible = false
+script = ExtResource("2_kj7xx")
+
+[node name="ScratchText" type="TextEdit" parent="ScratchWindow" groups=["Persist"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+placeholder_text = "Scratchpad
+This is saved"
+wrap_mode = 1
+script = ExtResource("2_kuxvr")
+
+[node name="SpellbookPopup" type="Window" parent="."]
+visible = false
+
+[connection signal="file_selected" from="SaveFile" to="." method="_on_SaveFile_file_selected"]
+[connection signal="file_selected" from="LoadFile" to="." method="_on_LoadFile_file_selected"]
+[connection signal="close_requested" from="ScratchWindow" to="ScratchWindow" method="_on_close_requested"]
