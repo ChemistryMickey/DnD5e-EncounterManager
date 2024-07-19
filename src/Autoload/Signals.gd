@@ -1,19 +1,14 @@
 extends Node
 #warning-ignore-all:unused_signal
 #
-## Player/Environment Interactions
-#
-#signal Button_Hover(text_out)
-#
+## Window Open
 signal show_notes()
 signal show_spellbook()
-#signal show_item_database()
-#signal show_confirmation(confirmation_str)
-#
-### SceneChanger
-#signal Scene_Changing()
-#signal Scene_Changed()
-#
+
+## Spellbook
+signal update_spellbook()
+
+
 ### Character summary
 #signal class_updated(class_choice)
 #signal race_changed(race_choice)

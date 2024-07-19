@@ -1,0 +1,12 @@
+{
+    "See the Lies": {
+        "Casting Time": "1 action",
+        "Components": "V, S, M (a mummified ear, and a golden magnifying glass worth at least 50g)",
+        "Description": "With a light chime that only you can hear, you are notified every time a magical Illusion enters or is cast within 60ft of you for the duration. When you look at an Illusion, and only while you are looking directly at it, the Illusion will appear translucent to only you. Similarly, a low tremble that only you can hear occurs whenever another creature makes a Deception check within 60ft of you for the duration, even when they are speaking a language that you do not understand. If you watch them as they make this Deception check, their words and actions appear to float around them, a vision that only you can see.",
+        "Duration": "Concentration (10 minutes)",
+        "Is Ritual?": false,
+        "Level": "5th Level",
+        "Range": "Self (60ft AoE)",
+        "School": "Evocation"
+    }
+}

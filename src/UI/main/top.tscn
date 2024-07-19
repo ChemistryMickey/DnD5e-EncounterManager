@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cps0o1mrwns0y"]
+[gd_scene load_steps=8 format=3 uid="uid://cps0o1mrwns0y"]
 
 [ext_resource type="Script" path="res://src/UI/main/top.gd" id="1_y8af6"]
 [ext_resource type="Script" path="res://src/UI/ScratchWindow/ScratchWindow.gd" id="2_kj7xx"]
 [ext_resource type="Script" path="res://src/UI/ScratchWindow/ScratchText.gd" id="2_kuxvr"]
 [ext_resource type="PackedScene" uid="uid://b4io5pwywkwt0" path="res://src/UI/Popups/Spellbook/spellbook_popup.tscn" id="4_3p0xb"]
-[ext_resource type="Script" path="res://src/UI/Popups/Spellbook/spellbook_popup.gd" id="5_teqaq"]
 
 [sub_resource type="Animation" id="Animation_r16hr"]
 length = 0.001
@@ -244,11 +243,8 @@ wrap_mode = 1
 script = ExtResource("2_kuxvr")
 
 [node name="SpellbookPopup" parent="." instance=ExtResource("4_3p0xb")]
-title = "Spellbook"
-initial_position = 2
-size = Vector2i(600, 600)
+visible = false
 popup_window = true
-script = ExtResource("5_teqaq")
 
 [connection signal="file_selected" from="SaveFile" to="." method="_on_SaveFile_file_selected"]
 [connection signal="file_selected" from="LoadFile" to="." method="_on_LoadFile_file_selected"]

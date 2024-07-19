@@ -2,19 +2,31 @@ extends Node
 
 # Autoloaded things are preserved between scenes
 var json_dicts : Dictionary = {}
-var cheatsheets : Dictionary = {}
+var base_jsons : Dictionary = {}
+var custom_jsons: Dictionary = {}
 
 func _ready() -> void:
 	load_databases()
 		
 func load_databases() -> void:
 	Utilities.load_jsons_from_dir("res://databases/base", json_dicts)
-
-	var custom_jsons = {}
-	Utilities.load_jsons_from_dir("res://databases/custom", custom_jsons)
 	
-	json_dicts = Utilities.recursive_dict_merge(json_dicts, custom_jsons)		
-		
+	var custom = {}
+	Utilities.load_jsons_from_dir("res://databases/custom", custom)
+	
+	# This order is important so a custom spell/condition will override a base one.
+	json_dicts = Utilities.recursive_dict_merge(custom, json_dicts)
+	
+	# base_jsons and custom_jsons are specifically used for checking
+	#	if something's in the base or custom for adding and deleting
+	Utilities.load_jsons_from_dir("res://databases/base", base_jsons)
+	Utilities.load_jsons_from_dir("res://databases/custom", custom_jsons)
+
+func output_custom_jsons() -> void:
+	for custom_json in custom_jsons.keys():
+		Utilities.output_json("res://databases/custom/%s.json" % custom_json, custom_jsons[custom_json])
+	
+
 func parse_table(table_dict : Dictionary, depth : int = 0) -> String:
 	var out_str = ""
 	const tab_str = "\t\t\t\t"
