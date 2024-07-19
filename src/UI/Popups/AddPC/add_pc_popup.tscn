@@ -1,0 +1,117 @@
+[gd_scene load_steps=2 format=3 uid="uid://f7hu8qg42gq3"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/AddPC/add_pc_popup.gd" id="1_fcgb4"]
+
+[node name="AddPCPopup" type="Window"]
+title = "Add PC"
+initial_position = 2
+size = Vector2i(600, 600)
+script = ExtResource("1_fcgb4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Name"
+alignment = 1
+
+[node name="Class" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AC" type="LineEdit" parent="VBoxContainer/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "AC"
+alignment = 1
+
+[node name="MaxHP" type="LineEdit" parent="VBoxContainer/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Max HP"
+alignment = 1
+
+[node name="PassivePerception" type="LineEdit" parent="VBoxContainer/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Passive Perception"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Movement Speeds:"
+
+[node name="Movement" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Walk" type="LineEdit" parent="VBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Walk"
+alignment = 1
+
+[node name="Climb" type="LineEdit" parent="VBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Climb"
+alignment = 1
+
+[node name="Swim" type="LineEdit" parent="VBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Swim"
+alignment = 1
+
+[node name="Fly" type="LineEdit" parent="VBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Fly"
+alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Spells (optional)"
+
+[node name="Spells" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Available" type="ItemList" parent="VBoxContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells Available to Learn"
+
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="->" type="Button" parent="VBoxContainer/Spells/Buttons"]
+layout_mode = 2
+text = "-->"
+
+[node name="<-" type="Button" parent="VBoxContainer/Spells/Buttons"]
+layout_mode = 2
+text = "<--"
+
+[node name="InSpellbook" type="ItemList" parent="VBoxContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells in Player Spellbook"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

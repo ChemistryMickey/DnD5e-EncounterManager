@@ -6,6 +6,10 @@ extends Control
 
 var sheet_dict: Dictionary
 
+func _ready():
+	if Signals.connect("request_save", save_current_sheet): print("Unable to connect to request_save!")
+	if Signals.connect("request_load", load_sheet): print("Unable to connect to request_load!")
+
 func _shortcut_input(event: InputEvent) -> void:
 	if event.is_action_pressed("save_as"):
 		#NOTE: This must go before "save" or else the save event will be handled before this one

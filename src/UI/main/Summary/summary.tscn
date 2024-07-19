@@ -1,0 +1,172 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjdpdv5kuk7a1"]
+
+[ext_resource type="Script" path="res://src/UI/main/Summary/summary.gd" id="1_e05e4"]
+
+[node name="Summary" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e05e4")
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="File" type="MenuButton" parent="TopBar"]
+layout_mode = 2
+text = "File"
+flat = false
+switch_on_hover = true
+item_count = 3
+popup/item_0/text = "Save     (Ctrl + S)"
+popup/item_0/id = 0
+popup/item_1/text = "Load    (Ctrl + O)"
+popup/item_1/id = 1
+popup/item_2/text = "Quit     (Ctrl + Q)"
+popup/item_2/id = 2
+
+[node name="Edit" type="MenuButton" parent="TopBar"]
+layout_mode = 2
+text = "Edit"
+flat = false
+switch_on_hover = true
+item_count = 1
+popup/item_0/text = "Define PC"
+popup/item_0/id = 0
+
+[node name="Options" type="MenuButton" parent="TopBar"]
+layout_mode = 2
+text = "Options"
+flat = false
+switch_on_hover = true
+item_count = 6
+popup/item_0/text = "Toggle Dice Roller"
+popup/item_0/id = 0
+popup/item_1/text = "Toggle Utilities Tray"
+popup/item_1/id = 3
+popup/item_2/text = ""
+popup/item_2/id = 4
+popup/item_2/separator = true
+popup/item_3/text = "Show Scratch Popup        (Ctrl + T)"
+popup/item_3/id = 1
+popup/item_4/text = "Show Spellbook Popup    (Ctrl + P)"
+popup/item_4/id = 2
+popup/item_5/text = "Show Help"
+popup/item_5/id = 5
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="ControlButtons" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="ControlButtons"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 0.215686)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlButtons/ColorRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Initiative:"
+
+[node name="IncrementInitiative" type="Button" parent="ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "+1"
+
+[node name="DecrementInitiative" type="Button" parent="ControlButtons/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "-1"
+
+[node name="Sort" type="MenuButton" parent="ControlButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.5
+text = "Sort By"
+flat = false
+item_count = 4
+popup/item_0/text = "Initiative"
+popup/item_0/id = 0
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+popup/item_2/text = "Health"
+popup/item_2/id = 2
+popup/item_3/text = "AC"
+popup/item_3/id = 3
+
+[node name="Spacer" type="Control" parent="ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Round" type="SpinBox" parent="ControlButtons/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+max_value = 1000.0
+rounded = true
+alignment = 1
+prefix = "Round #: "
+
+[node name="Spacer2" type="Control" parent="ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="AddPC" type="MenuButton" parent="ControlButtons"]
+layout_mode = 2
+text = "Add PC"
+flat = false
+item_count = 2
+popup/item_0/text = ""
+popup/item_0/id = 100
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Define PC"
+popup/item_1/id = 101
+
+[node name="AddNPC" type="Button" parent="ControlButtons"]
+layout_mode = 2
+text = "Add NPC"
+
+[node name="AddNonActor" type="Button" parent="ControlButtons"]
+layout_mode = 2
+tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
+text = "Add Non-Actor"
+
+[node name="InfoOptions" type="VSplitContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Info" type="ScrollContainer" parent="InfoOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoOptions/Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionTray" type="ScrollContainer" parent="InfoOptions"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoOptions/OptionTray"]
+layout_mode = 2

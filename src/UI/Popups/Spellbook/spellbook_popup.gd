@@ -1,10 +1,8 @@
 extends Window
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	if Signals.connect("show_spellbook", Callable(self, "toggle_self")): print("Unable to connect to show_spellbook!")
-	if Signals.connect("update_spellbook", Callable(self, "update_lists")): print("Unable to connect to update_spellbook!")
+	if Signals.connect("show_spellbook", toggle_self): print("Unable to connect to show_spellbook!")
+	if Signals.connect("update_spellbook", update_lists): print("Unable to connect to update_spellbook!")
 	update_lists()
 
 func update_lists():
