@@ -84,7 +84,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Spells (optional)"
+text = "Spells (optional):"
 
 [node name="Spells" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -114,4 +114,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Spells in Player Spellbook"
 
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Save" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Save Character"
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Cancel" to="." method="_on_cancel_pressed"]

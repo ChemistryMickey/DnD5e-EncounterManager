@@ -33,6 +33,14 @@ func output_json(path: String, dict: Dictionary) -> void:
 	file.store_string(JSON.stringify(dict, "\t"))
 	file.close()
 
+func recursive_clear_lineedits(children: Array[Node]) -> void:
+	for child in children:
+		if child.get_child_count() != 0:
+			recursive_clear_lineedits(child.get_children())
+		
+		if child is LineEdit:
+			child.text = ""
+
 func recursive_dict_merge(dict1: Dictionary, dict2: Dictionary) -> Dictionary:
 	var merged_dict = {}
 	for key in dict1.keys():
