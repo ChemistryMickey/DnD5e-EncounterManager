@@ -8,6 +8,8 @@ func _ready():
 	update_lists()
 
 func update_lists():
+	$"HBoxContainer/TabBar/By Class/ItemList".clear()
+	$"HBoxContainer/TabBar/All Spells/ItemList".clear()
 	prepare_alphabet_spell_list(DatabaseLoader.json_dicts["spell-descriptions"])
 	prepare_by_class_list(DatabaseLoader.json_dicts["spells-by-class"])
 
@@ -65,15 +67,26 @@ func _on_add_spell_close_requested():
 
 func _on_remove_spell_pressed():
 	var selected_spell: String
-	var item_list
+	var item_list: ItemList
 	if $"HBoxContainer/TabBar/All Spells".visible:
 		item_list = $"HBoxContainer/TabBar/All Spells/ItemList"
 	elif $"HBoxContainer/TabBar/By Class".visible:
 		item_list = $"HBoxContainer/TabBar/By Class/ItemList"
 		
-	var selected = item_list.get_selected_items()
-	if selected == []:
+	var selected: PackedInt32Array = item_list.get_selected_items()
+	if selected.is_empty():
 		return
 	selected_spell = item_list.get_item_text(selected[0])
 	
-	pass
+	if DatabaseLoader.base_jsons["spell-descriptions"].has(selected_spell):
+		$RemoveSpellError.visible = true
+		return
+	
+	$RemoveSpellConfirm.visible = true
+	$RemoveSpellConfirm.dialog_text = "Are you sure you want to remove %s?" % selected_spell
+	await $RemoveSpellConfirm.confirmed
+	
+	DatabaseLoader.custom_jsons["spell-descriptions"].erase(selected_spell)
+	DatabaseLoader.output_custom_jsons()
+	DatabaseLoader.load_databases()
+	update_lists()

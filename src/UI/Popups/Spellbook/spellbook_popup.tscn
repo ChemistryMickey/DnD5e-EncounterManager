@@ -192,6 +192,18 @@ initial_position = 2
 size = Vector2i(250, 100)
 dialog_autowrap = true
 
+[node name="RemoveSpellError" type="AcceptDialog" parent="."]
+title = "Error!"
+initial_position = 2
+size = Vector2i(291, 158)
+dialog_text = "Cannot delete a spell from the base spellbook!
+Only custom spells may be removed."
+dialog_autowrap = true
+
+[node name="RemoveSpellConfirm" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(250, 100)
+
 [connection signal="item_activated" from="HBoxContainer/TabBar/All Spells/ItemList" to="." method="_on_all_spells_item_activated"]
 [connection signal="item_activated" from="HBoxContainer/TabBar/By Class/ItemList" to="." method="_on_by_class_item_activated"]
 [connection signal="pressed" from="HBoxContainer/Info/Buttons/AddSpell" to="." method="_on_add_spell_pressed"]
