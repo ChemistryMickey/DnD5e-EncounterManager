@@ -5,26 +5,38 @@ var json_dicts : Dictionary = {}
 var base_jsons : Dictionary = {}
 var custom_jsons: Dictionary = {}
 
+const base_dir: String = "res://databases/base"
+const custom_dir: String = "res://databases/custom"
+
 func _ready() -> void:
 	load_databases()
-		
+
+func add_pc(pc: Dictionary) -> void:
+	custom_jsons["PCs"][pc["Name"]] = pc
+	output_custom_jsons("PCs")
+	load_databases()
+
 func load_databases() -> void:
-	Utilities.load_jsons_from_dir("res://databases/base", json_dicts)
+	Utilities.load_jsons_from_dir(base_dir, json_dicts)
 	
 	var custom = {}
-	Utilities.load_jsons_from_dir("res://databases/custom", custom)
+	Utilities.load_jsons_from_dir(custom_dir, custom)
 	
 	# This order is important so a custom spell/condition will override a base one.
 	json_dicts = Utilities.recursive_dict_merge(custom, json_dicts)
 	
 	# base_jsons and custom_jsons are specifically used for checking
 	#	if something's in the base or custom for adding and deleting
-	Utilities.load_jsons_from_dir("res://databases/base", base_jsons)
-	Utilities.load_jsons_from_dir("res://databases/custom", custom_jsons)
+	Utilities.load_jsons_from_dir(base_dir, base_jsons)
+	Utilities.load_jsons_from_dir(custom_dir, custom_jsons)
 
-func output_custom_jsons() -> void:
-	for custom_json in custom_jsons.keys():
-		Utilities.output_json("res://databases/custom/%s.json" % custom_json, custom_jsons[custom_json])
+func output_custom_jsons(json: String = "") -> void:
+	var custom_json_dir = "%s/%s.json"
+	if json == "":
+		for custom_json in custom_jsons.keys():
+			Utilities.output_json(custom_json_dir % [custom_dir, custom_json], custom_jsons[custom_json])
+	else:
+		Utilities.output_json(custom_json_dir % [custom_dir, json], custom_jsons[json])
 	
 
 func parse_table(table_dict : Dictionary, depth : int = 0) -> String:
@@ -96,36 +108,3 @@ func calc_col_width(col_name: String, column: Array) -> int:
 		max_len = len(col_name)
 	
 	return max_len
-	
-func stringify_race(race : Dictionary) -> String:
-	var out_str = ""
-	out_str += "%s\n\n" % race["Description"]
-	out_str += "Ability Score Increases:\n%s\n" % parse_table(race["Ability Score Increases"], 1)
-	out_str += "Age:\n\t%s\n" % race["Age"]
-	out_str += "Size:\n\t%s\n" % race["Size"]
-	out_str += "Move Speeds: \n"
-	out_str += "\tWalking: %s\n\tClimbing: %s\n\tSwimming: %s\n\tFlying: %s\n" % \
-		[race["Speeds"]["Walking"], race["Speeds"]["Climbing"], 
-		race["Speeds"]["Swimming"] ,race["Speeds"]["Flying"]]
-	out_str += "\nAbilities: \n"
-	out_str += parse_list(race["Abilities"], 1)
-	if not race["Tool Proficiencies"].is_empty():
-		out_str += "\nTool Proficiencies: \n"
-		for item in race["Tool Proficiencies"]:
-			if item is String:
-				out_str += "\t%s\n" % item
-			if item is Array:
-				out_str += "\t"
-				out_str += "\tOR\t".join(item)
-	out_str += "\nLanguages: \n"
-	for lang in race["Languages"]:
-		out_str += "\t%s\n" % lang
-		
-	if not race["Subraces"].is_empty():
-		out_str += "\nSubraces: \n"
-		for subrace in race["Subraces"]:
-			out_str += "\t%s: \n" % subrace
-			out_str += "\t\tAbility Score Increases:\n%s\n" % parse_table(race["Subraces"][subrace]["Ability Score Increases"], 3)
-			out_str += "\t\tAbilities: \n"
-			out_str += parse_list(race["Subraces"][subrace]["Abilities"], 3)
-	return out_str
