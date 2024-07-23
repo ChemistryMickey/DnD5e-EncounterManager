@@ -9,6 +9,10 @@ var sheet_dict: Dictionary
 func _ready():
 	if Signals.connect("request_save", save_current_sheet): print("Unable to connect to request_save!")
 	if Signals.connect("request_load", load_sheet): print("Unable to connect to request_load!")
+	if Signals.connect("show_help", _show_help): print("Unable to connect to show_help!")
+
+func _show_help():
+	$Help.visible = true
 
 func _shortcut_input(event: InputEvent) -> void:
 	if event.is_action_pressed("save_as"):
@@ -91,3 +95,7 @@ func load_sheet(path : String = ""):
 			continue
 			
 		node.call("load_sheet", sheet_dict)
+
+
+func _on_help_close_requested():
+	$Help.visible = false

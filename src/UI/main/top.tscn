@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cps0o1mrwns0y"]
+[gd_scene load_steps=11 format=3 uid="uid://cps0o1mrwns0y"]
 
 [ext_resource type="Script" path="res://src/UI/main/top.gd" id="1_y8af6"]
 [ext_resource type="Script" path="res://src/UI/ScratchWindow/ScratchWindow.gd" id="2_kj7xx"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjdpdv5kuk7a1" path="res://src/UI/main/Summary/summary.tscn" id="2_vypgq"]
 [ext_resource type="PackedScene" uid="uid://b4io5pwywkwt0" path="res://src/UI/Popups/Spellbook/spellbook_popup.tscn" id="4_3p0xb"]
 [ext_resource type="PackedScene" uid="uid://f7hu8qg42gq3" path="res://src/UI/Popups/AddPC/add_pc_popup.tscn" id="6_ak5do"]
+[ext_resource type="PackedScene" uid="uid://485pr8rsfr3g" path="res://src/UI/Popups/ManagePCs/manage_PCs.tscn" id="7_x60dx"]
 
 [sub_resource type="Animation" id="Animation_r16hr"]
 length = 0.001
@@ -104,8 +105,45 @@ visible = false
 popup_window = true
 
 [node name="AddPCPopup" parent="." instance=ExtResource("6_ak5do")]
+visible = false
+
+[node name="ManagePCs" parent="." instance=ExtResource("7_x60dx")]
+visible = false
+
+[node name="Help" type="Window" parent="."]
+title = "Help"
+initial_position = 2
+size = Vector2i(600, 500)
+visible = false
+
+[node name="TextEdit" type="TextEdit" parent="Help"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "Dungeons and Dragons 5e Encounter Manager:
+A tool for creating more creative DnD encounters by offloading complex turn tracking and NPC management.
+
+Hotkeys:
+	Ctrl + S: 					Save
+	Ctrl + Shift + S: 		Save As
+	Ctrl + L: 					Load
+	Ctrl + T: 					Show Scratch Window
+	Ctrl + P: 					Show Spellbook
+	
+If you have any issues or feature requests, open a ticket on github:
+	https://github.com/ChemistryMickey/DnD5e-EncounterManager/issues
+
+This program is released \"as is\" under the GNU GPL.
+
+If you find this valuable and want to help support, feel free to buy me a coffee: <placeholder>"
+editable = false
+wrap_mode = 1
 
 [connection signal="file_selected" from="SaveFile" to="." method="_on_SaveFile_file_selected"]
 [connection signal="file_selected" from="LoadFile" to="." method="_on_LoadFile_file_selected"]
 [connection signal="close_requested" from="ScratchWindow" to="ScratchWindow" method="_on_close_requested"]
 [connection signal="close_requested" from="SpellbookPopup" to="SpellbookPopup" method="_on_close_requested"]
+[connection signal="close_requested" from="Help" to="." method="_on_help_close_requested"]

@@ -31,9 +31,11 @@ layout_mode = 2
 text = "Edit"
 flat = false
 switch_on_hover = true
-item_count = 1
-popup/item_0/text = "Define PC"
+item_count = 2
+popup/item_0/text = "Manage PCs"
 popup/item_0/id = 0
+popup/item_1/text = "Define PC"
+popup/item_1/id = 1
 
 [node name="Options" type="MenuButton" parent="TopBar"]
 layout_mode = 2
@@ -44,14 +46,14 @@ item_count = 6
 popup/item_0/text = "Toggle Dice Roller"
 popup/item_0/id = 0
 popup/item_1/text = "Toggle Utilities Tray"
-popup/item_1/id = 3
+popup/item_1/id = 1
 popup/item_2/text = ""
-popup/item_2/id = 4
+popup/item_2/id = 2
 popup/item_2/separator = true
 popup/item_3/text = "Show Scratch Popup        (Ctrl + T)"
-popup/item_3/id = 1
+popup/item_3/id = 3
 popup/item_4/text = "Show Spellbook Popup    (Ctrl + P)"
-popup/item_4/id = 2
+popup/item_4/id = 4
 popup/item_5/text = "Show Help"
 popup/item_5/id = 5
 
@@ -63,7 +65,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="ColorRect" type="ColorRect" parent="ControlButtons"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 color = Color(1, 1, 1, 0.215686)
 
@@ -82,7 +84,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="ControlButtons/ColorRect/HBoxContainer"]
 layout_mode = 2
-text = "Initiative:"
+text = "Turn Counter:"
 
 [node name="IncrementInitiative" type="Button" parent="ControlButtons/ColorRect/HBoxContainer"]
 layout_mode = 2

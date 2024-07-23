@@ -4,10 +4,13 @@ extends Node
 ## Window Open
 signal show_notes()
 signal show_spellbook()
+signal show_help()
 signal show_add_pc()
+signal show_manage_pcs()
 
 ## Spellbook
 signal update_spellbook()
+signal update_PCs()
 
 ## Interactions
 signal request_save()

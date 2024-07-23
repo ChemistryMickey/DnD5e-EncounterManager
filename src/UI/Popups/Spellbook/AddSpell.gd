@@ -27,7 +27,7 @@ func _on_add_pressed():
 				$WarningDialog.dialog_text = "%s cannot be empty!" % key
 				return
 	
-	if DatabaseLoader.base_jsons["spell-descriptions"].has(spell_name):
+	if DatabaseManager.base_jsons["spell-descriptions"].has(spell_name):
 		$ConfirmationDialog.visible = true
 		$ConfirmationDialog.title = "Overshadow base spell?"
 		$ConfirmationDialog.dialog_text = "Spell already exists in base DnD5e!\n" + \
@@ -35,16 +35,16 @@ func _on_add_pressed():
 
 		await $ConfirmationDialog.confirmed
 		
-	if DatabaseLoader.custom_jsons["spell-descriptions"].has(spell_name):
+	if DatabaseManager.custom_jsons["spell-descriptions"].has(spell_name):
 		$ConfirmationDialog.visible = true
 		$ConfirmationDialog.title = "Overwrite custom spell?"
 		$ConfirmationDialog.dialog_text = "Spell already exists in custom database!\n" + \
 							"Would you like to overwrite the existing definition?"
 		await $ConfirmationDialog.confirmed
 		
-	DatabaseLoader.custom_jsons["spell-descriptions"][spell_name] = data
-	DatabaseLoader.output_custom_jsons()
-	DatabaseLoader.load_databases()
+	DatabaseManager.custom_jsons["spell-descriptions"][spell_name] = data
+	DatabaseManager.output_custom_jsons()
+	DatabaseManager.load_databases()
 	_clear_fields()
 	self.visible = false
 	

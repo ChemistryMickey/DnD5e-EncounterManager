@@ -14,24 +14,22 @@ func find_in_dictionary(dict: Dictionary, term):
 	else:
 		return {}
 
-func load_jsons_from_dir(path: String, dict: Dictionary) -> void:
-	var json_raw_strs = []
-	var filenames = []
-	var dir = DirAccess.open(path).get_files()
-	if dir:
-		for cur_file in dir:
-			var contents = FileAccess.open("%s/%s" % [path, cur_file], FileAccess.READ).get_as_text()
-			json_raw_strs.append(contents)
-			filenames.append(cur_file.split('.')[0])
+func load_json_from_dir(path: String, dict: Dictionary, json: String) -> void:
+	var contents = FileAccess.open("%s/%s" % [path, json], FileAccess.READ).get_as_text()
+	dict[json.split('.')[0]] = JSON.parse_string(contents)
 
-	for idx in range(filenames.size()):
-		var test_json_conv = JSON.parse_string(json_raw_strs[idx])
-		dict[filenames[idx]] = test_json_conv
+func load_jsons_from_dir(path: String, dict: Dictionary) -> void:
+	var dir: PackedStringArray = DirAccess.open(path).get_files()
+	if dir.is_empty():
+		return
+		
+	for cur_file in dir:
+		load_json_from_dir(path, dict, cur_file)
 
 func output_json(path: String, dict: Dictionary) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(dict, "\t"))
-	file.close()
+	#NOTE: FileAccess objects close when they go out of scope so it doesn't need to be closed
 
 func recursive_clear_lineedits(children: Array[Node]) -> void:
 	for child in children:

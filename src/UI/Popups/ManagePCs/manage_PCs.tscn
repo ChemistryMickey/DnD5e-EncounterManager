@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://485pr8rsfr3g"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/ManagePCs/manage_PCs.gd" id="1_w0mpb"]
+[ext_resource type="PackedScene" uid="uid://thxdmah8o30i" path="res://src/UI/Popups/common/pc_info.tscn" id="2_n3yh1"]
+
+[node name="ManagePCs" type="Window"]
+title = "Manage PCs"
+initial_position = 2
+size = Vector2i(600, 600)
+script = ExtResource("1_w0mpb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PCListContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PCListContainer"]
+layout_mode = 2
+text = "PCs:"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer/PCListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PCInfo" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_n3yh1")]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Remove" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Remove PC"
+
+[node name="Overwrite" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Overwrite PC"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Delete PCs"
+initial_position = 2
+dialog_text = "Confirm deletion of PCs"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/PCListContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/PCListContainer/ItemList" to="." method="_on_item_list_item_selected"]
+
+[editable path="VBoxContainer/HBoxContainer/PCInfo"]

@@ -8,8 +8,8 @@ func _ready():
 func update_lists():
 	$"HBoxContainer/TabBar/By Class/ItemList".clear()
 	$"HBoxContainer/TabBar/All Spells/ItemList".clear()
-	prepare_alphabet_spell_list(DatabaseLoader.json_dicts["spell-descriptions"])
-	prepare_by_class_list(DatabaseLoader.json_dicts["spells-by-class"])
+	prepare_alphabet_spell_list(DatabaseManager.json_dicts["spell-descriptions"])
+	prepare_by_class_list(DatabaseManager.json_dicts["spells-by-class"])
 
 func prepare_alphabet_spell_list(all_spells : Dictionary):
 	var all_spell_list = []
@@ -42,10 +42,10 @@ func _on_by_class_item_activated(index: int):
 	_update_spell_info(spell_name)
 	
 func _update_spell_info(spell_name: String):
-	if !DatabaseLoader.json_dicts["spell-descriptions"].has(spell_name):
+	if !DatabaseManager.json_dicts["spell-descriptions"].has(spell_name):
 		return
 		
-	var spell_conts = DatabaseLoader.json_dicts["spell-descriptions"][spell_name]
+	var spell_conts = DatabaseManager.json_dicts["spell-descriptions"][spell_name]
 	
 	$HBoxContainer/Info/Name.text = spell_name
 	$HBoxContainer/Info/Level.text = spell_conts["Level"]
@@ -76,7 +76,7 @@ func _on_remove_spell_pressed():
 		return
 	selected_spell = item_list.get_item_text(selected[0])
 	
-	if DatabaseLoader.base_jsons["spell-descriptions"].has(selected_spell):
+	if DatabaseManager.base_jsons["spell-descriptions"].has(selected_spell):
 		$RemoveSpellError.visible = true
 		return
 	
@@ -84,7 +84,7 @@ func _on_remove_spell_pressed():
 	$RemoveSpellConfirm.dialog_text = "Are you sure you want to remove %s?" % selected_spell
 	await $RemoveSpellConfirm.confirmed
 	
-	DatabaseLoader.custom_jsons["spell-descriptions"].erase(selected_spell)
-	DatabaseLoader.output_custom_jsons()
-	DatabaseLoader.load_databases()
+	DatabaseManager.custom_jsons["spell-descriptions"].erase(selected_spell)
+	DatabaseManager.output_custom_jsons()
+	DatabaseManager.load_databases()
 	update_lists()

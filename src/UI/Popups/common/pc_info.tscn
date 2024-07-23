@@ -1,0 +1,151 @@
+[gd_scene load_steps=2 format=3 uid="uid://thxdmah8o30i"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/common/pc_info.gd" id="1_vxcc4"]
+
+[node name="PCInfo" type="VBoxContainer"]
+script = ExtResource("1_vxcc4")
+
+[node name="Name" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Name"
+alignment = 1
+
+[node name="Class" type="OptionButton" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="AC" type="LineEdit" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "AC"
+alignment = 1
+
+[node name="MaxHP" type="LineEdit" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Max HP"
+alignment = 1
+
+[node name="PassivePerception" type="LineEdit" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Passive Perception"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="SpeedsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Movement Speeds:"
+
+[node name="Movement" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Walk" type="LineEdit" parent="Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Walk"
+alignment = 1
+
+[node name="Climb" type="LineEdit" parent="Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Climb"
+alignment = 1
+
+[node name="Swim" type="LineEdit" parent="Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Swim"
+alignment = 1
+
+[node name="Fly" type="LineEdit" parent="Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Fly"
+alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="SavesLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Saves:"
+
+[node name="Saves" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="STR" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "STR"
+alignment = 1
+
+[node name="DEX" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "DEX"
+alignment = 1
+
+[node name="CON" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "CON"
+alignment = 1
+
+[node name="INT" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "INT"
+alignment = 1
+
+[node name="WIS" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "WIS"
+alignment = 1
+
+[node name="CHA" type="LineEdit" parent="Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "CHA"
+alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="SpellsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Spells (optional):"
+
+[node name="Spells" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Available" type="ItemList" parent="Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells Available to Learn"
+
+[node name="Buttons" type="VBoxContainer" parent="Spells"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="->" type="Button" parent="Spells/Buttons"]
+layout_mode = 2
+text = "→"
+
+[node name="<-" type="Button" parent="Spells/Buttons"]
+layout_mode = 2
+text = "←"
+
+[node name="InSpellbook" type="ItemList" parent="Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells in Player Spellbook"

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DatabaseLoader="*res://src/Autoload/DatabaseLoader.gd"
+DatabaseManager="*res://src/Autoload/DatabaseManager.gd"
 Signals="*res://src/Autoload/Signals.gd"
 Utilities="*res://src/Autoload/Utilities.gd"
 Debug="*res://src/Autoload/Debug.gd"
