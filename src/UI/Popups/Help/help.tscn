@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dc61gy1nh5for"]
+
+[node name="Help" type="Window"]
+title = "Help"
+initial_position = 2
+size = Vector2i(600, 500)
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Base" type="TextEdit" parent="TabContainer"]
+layout_mode = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "Dungeons and Dragons 5e Encounter Manager:
+A tool for creating more creative DnD encounters by offloading complex turn tracking and NPC management.
+
+Hotkeys:
+	Ctrl + S: 					Save
+	Ctrl + Shift + S: 		Save As
+	Ctrl + L: 					Load
+	Ctrl + T: 					Show Scratch Window
+	Ctrl + P: 					Show Spellbook"
+editable = false
+wrap_mode = 1
+
+[node name="PCs" type="TextEdit" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+editable = false
+wrap_mode = 1
+
+[node name="NPCs" type="TextEdit" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+editable = false
+wrap_mode = 1
+
+[node name="Misc Management" type="TextEdit" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+editable = false
+wrap_mode = 1
+
+[node name="About" type="TextEdit" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "This program is released \"as is\" under the GNU GPL.
+Feel free to modify or package this code as you'd like but please respect the intellectual property of other creators and ask permission before adding their work to a publically released piece of software.
+We're here because we love this game and want to reward the community of creators that make it as amazing as it is.
+
+If you have any issues or feature requests, open a ticket on github:
+	https://github.com/ChemistryMickey/DnD5e-EncounterManager/issues
+
+If you find this valuable and want to help support, feel free to buy me a coffee: <placeholder>
+
+Thanks to my kind DM friends who've play-tested this tool and offered great feedback. I'm incapable of incorporating it all though so if there are any good parts, it's probably their contribution and rough edges are my own design inadequacies."
+editable = false
+wrap_mode = 1

@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://gdi13j0dfqpm"]
+
+[ext_resource type="Script" path="res://src/UI/main/Summary/status.gd" id="1_3e8mf"]
+
+[node name="Status" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3e8mf")
+
+[node name="Control3" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Status Name"
+alignment = 1
+expand_to_text_length = true
+
+[node name="RemainingTurns" type="SpinBox" parent="."]
+layout_mode = 2
+tooltip_text = "Turns Remaining"
+alignment = 1
+suffix = "/P"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Remove" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Delete status effect"
+text = "X"
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Remove" to="." method="_on_remove_pressed"]

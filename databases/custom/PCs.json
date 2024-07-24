@@ -1,1 +1,107 @@
-{}
+{
+	"Test": {
+		"AC": "12",
+		"Class": "Warlock",
+		"MaxHP": "12",
+		"Name": "Test",
+		"Passive Perception": "12",
+		"Saves": {
+			"CHA": "12",
+			"CON": "12",
+			"DEX": "12",
+			"INT": "12",
+			"STR": "12",
+			"WIS": "12"
+		},
+		"Speed": {
+			"Climbing": "12",
+			"Flying": "12",
+			"Swimming": "12",
+			"Walking": "12"
+		},
+		"Spells": [
+			"Acid Splash",
+			"Fabricate"
+		]
+	},
+	"Test2": {
+		"AC": "13",
+		"Class": "Barbarian",
+		"MaxHP": "13",
+		"Name": "Test2",
+		"Passive Perception": "13",
+		"Saves": {
+			"CHA": "13",
+			"CON": "13",
+			"DEX": "13",
+			"INT": "13",
+			"STR": "13",
+			"WIS": "13"
+		},
+		"Speed": {
+			"Climbing": "13",
+			"Flying": "13",
+			"Swimming": "13",
+			"Walking": "13"
+		},
+		"Spells": [
+			"Antilife Shell",
+			"Astral Projection",
+			"Bestow Curse",
+			"Bless",
+			"Blur",
+			"Chain Lightning"
+		]
+	},
+	"Test3": {
+		"AC": "11",
+		"Class": "Barbarian",
+		"MaxHP": "11",
+		"Name": "Test3",
+		"Passive Perception": "11",
+		"Saves": {
+			"CHA": "11",
+			"CON": "11",
+			"DEX": "11",
+			"INT": "11",
+			"STR": "11",
+			"WIS": "11"
+		},
+		"Speed": {
+			"Climbing": "11",
+			"Flying": "11",
+			"Swimming": "11",
+			"Walking": "11"
+		},
+		"Spells": [
+			"Animal Shapes",
+			"Animate Objects"
+		]
+	},
+	"Test4": {
+		"AC": "14",
+		"Class": "Fighter",
+		"MaxHP": "15",
+		"Name": "Test4",
+		"Passive Perception": "14",
+		"Saves": {
+			"CHA": "14",
+			"CON": "14",
+			"DEX": "14",
+			"INT": "14",
+			"STR": "14",
+			"WIS": "14"
+		},
+		"Speed": {
+			"Climbing": "14",
+			"Flying": "14",
+			"Swimming": "14",
+			"Walking": "141"
+		},
+		"Spells": [
+			"Dancing Lights",
+			"Fabricate",
+			"Sacred Flame"
+		]
+	}
+}

@@ -136,13 +136,6 @@ size_flags_stretch_ratio = 0.5
 layout_mode = 2
 text = "Add PC"
 flat = false
-item_count = 2
-popup/item_0/text = ""
-popup/item_0/id = 100
-popup/item_0/disabled = true
-popup/item_0/separator = true
-popup/item_1/text = "Define PC"
-popup/item_1/id = 101
 
 [node name="AddNPC" type="Button" parent="ControlButtons"]
 layout_mode = 2
@@ -153,6 +146,12 @@ layout_mode = 2
 tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
 text = "Add Non-Actor"
 
+[node name="HSeparator2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="."]
+layout_mode = 2
+
 [node name="InfoOptions" type="VSplitContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
@@ -161,14 +160,31 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InfoOptions/Info"]
+[node name="Actors" type="VBoxContainer" parent="InfoOptions/Info"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="OptionTray" type="ScrollContainer" parent="InfoOptions"]
-visible = false
+[node name="OptionTray" type="HBoxContainer" parent="InfoOptions"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InfoOptions/OptionTray"]
+[node name="ToolScroll" type="ScrollContainer" parent="InfoOptions/OptionTray"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tools" type="VBoxContainer" parent="InfoOptions/OptionTray/ToolScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionScroll" type="ScrollContainer" parent="InfoOptions/OptionTray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Actions" type="VBoxContainer" parent="InfoOptions/OptionTray/ActionScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="ControlButtons/AddNonActor" to="." method="_on_add_non_actor_pressed"]

@@ -10,30 +10,30 @@ layout_mode = 2
 placeholder_text = "Name"
 alignment = 1
 
-[node name="Class" type="OptionButton" parent="."]
-layout_mode = 2
-alignment = 1
-
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="AC" type="LineEdit" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Armor Class"
 placeholder_text = "AC"
 alignment = 1
 
 [node name="MaxHP" type="LineEdit" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Max HP"
 placeholder_text = "Max HP"
 alignment = 1
 
 [node name="PassivePerception" type="LineEdit" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Passive Perception"
 placeholder_text = "Passive Perception"
 alignment = 1
+expand_to_text_length = true
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
@@ -48,24 +48,28 @@ layout_mode = 2
 [node name="Walk" type="LineEdit" parent="Movement"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Walking"
 placeholder_text = "Walk"
 alignment = 1
 
 [node name="Climb" type="LineEdit" parent="Movement"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Climbing"
 placeholder_text = "Climb"
 alignment = 1
 
 [node name="Swim" type="LineEdit" parent="Movement"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Swimming"
 placeholder_text = "Swim"
 alignment = 1
 
 [node name="Fly" type="LineEdit" parent="Movement"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Flying"
 placeholder_text = "Fly"
 alignment = 1
 
@@ -82,36 +86,42 @@ layout_mode = 2
 [node name="STR" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "STR"
 placeholder_text = "STR"
 alignment = 1
 
 [node name="DEX" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "DEX"
 placeholder_text = "DEX"
 alignment = 1
 
 [node name="CON" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "CON"
 placeholder_text = "CON"
 alignment = 1
 
 [node name="INT" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "INT"
 placeholder_text = "INT"
 alignment = 1
 
 [node name="WIS" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "WIS"
 placeholder_text = "WIS"
 alignment = 1
 
 [node name="CHA" type="LineEdit" parent="Saves"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "CHA"
 placeholder_text = "CHA"
 alignment = 1
 
@@ -149,3 +159,6 @@ text = "←"
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Spells in Player Spellbook"
+
+[connection signal="pressed" from="Spells/Buttons/->" to="." method="_on_add_spell_pressed"]
+[connection signal="pressed" from="Spells/Buttons/<-" to="." method="_on_remove_spell_pressed"]

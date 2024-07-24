@@ -1,21 +1,24 @@
 extends Node
 #warning-ignore-all:unused_signal
 
-## Window Open
+# Window Open
 signal show_notes()
 signal show_spellbook()
 signal show_help()
-signal show_add_pc()
-signal show_manage_pcs()
+signal show_add_PC()
+signal show_manage_PCs()
 
-## Spellbook
+# Spellbook
 signal update_spellbook()
 signal update_PCs()
 
-## Interactions
+# Interactions
 signal request_save()
 signal request_load()
 signal request_quit()
+
+# Actor Specific
+signal status_changed(actor_name: String)
 
 ### Character summary
 #signal class_updated(class_choice)

@@ -56,6 +56,11 @@ func recursive_dict_merge(dict1: Dictionary, dict2: Dictionary) -> Dictionary:
 			merged_dict[key] = dict2[key]
 	return merged_dict
 
+func strip_bbcode_tags(str_in: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("\\[.*?\\]")
+	return regex.sub(str_in, "", true)
+
 func unique(arr_in : Array) -> Array:
 	# Doesn't sort
 	var array_out = []

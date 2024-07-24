@@ -31,6 +31,7 @@ text = "PCs:"
 [node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer/PCListContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="PCInfo" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_n3yh1")]
 layout_mode = 2
@@ -41,19 +42,24 @@ alignment = 1
 
 [node name="Remove" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
-text = "Remove PC"
+tooltip_text = "Remove Selected PCs from database
+(WARNING: This is permanent!)"
+text = "Remove PC(s)"
 
-[node name="Overwrite" type="Button" parent="VBoxContainer/Buttons"]
+[node name="AddOverwrite" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
-text = "Overwrite PC"
+text = "Add/Overwrite PC"
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "Delete PCs"
 initial_position = 2
-dialog_text = "Confirm deletion of PCs"
+size = Vector2i(206, 100)
+dialog_text = "Confirm deletion of PCs?"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_activated" from="VBoxContainer/HBoxContainer/PCListContainer/ItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/PCListContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Remove" to="." method="_on_remove_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/AddOverwrite" to="." method="_on_add_overwrite_pressed"]
 
 [editable path="VBoxContainer/HBoxContainer/PCInfo"]

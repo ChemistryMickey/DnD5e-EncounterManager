@@ -1,10 +1,10 @@
 extends Window
 
 func _ready():
-	if Signals.connect("show_add_pc", _reveal): print("Unable to connect to show_add_pc!")
+	if Signals.connect("show_add_PC", _reveal): print("Unable to connect to show_add_pc!")
 
 func _clear_fields():
-	Utilities.recursive_clear_lineedits(self.get_children())
+	$VBoxContainer/PCInfo.clear()
 
 func _reveal():
 	self.visible = true
@@ -64,3 +64,6 @@ func _on_save_pressed():
 	# Add to database
 	DatabaseManager.add_pc(pc)
 	Signals.emit_signal("update_PCs")
+	
+	_clear_fields()
+	self.visible = false

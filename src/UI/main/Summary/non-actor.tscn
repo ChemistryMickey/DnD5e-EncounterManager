@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm7au3cwnj143"]
+
+[ext_resource type="Script" path="res://src/UI/main/Summary/non-actor.gd" id="1_cpi8o"]
+
+[node name="Non-actor" type="ColorRect"]
+custom_minimum_size = Vector2(0, 72)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("1_cpi8o")
+
+[node name="Info" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="Selected" type="CheckBox" parent="Info"]
+layout_mode = 2
+
+[node name="b" type="HBoxContainer" parent="Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Initiative" type="LineEdit" parent="Info/b"]
+layout_mode = 2
+tooltip_text = "Initiative"
+placeholder_text = "Init."
+alignment = 1
+
+[node name="Description" type="TextEdit" parent="Info/b"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Description of non-actor event
+(e.g. lair actions, ambush condition reminder, etc.)"
+wrap_mode = 1
+
+[connection signal="toggled" from="Info/Selected" to="." method="_on_selected_toggled"]

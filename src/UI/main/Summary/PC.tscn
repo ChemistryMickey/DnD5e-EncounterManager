@@ -1,0 +1,185 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuxlwfqro78in"]
+
+[ext_resource type="Script" path="res://src/UI/main/Summary/PC.gd" id="1_p125l"]
+[ext_resource type="PackedScene" uid="uid://gdi13j0dfqpm" path="res://src/UI/main/Summary/status.tscn" id="2_43wlq"]
+
+[node name="PC" type="ColorRect"]
+custom_minimum_size = Vector2(0, 72)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("1_p125l")
+
+[node name="Info" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="Selected" type="CheckBox" parent="Info"]
+layout_mode = 2
+
+[node name="b" type="VBoxContainer" parent="Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="b1" type="HBoxContainer" parent="Info/b"]
+layout_mode = 2
+
+[node name="Name" type="LineEdit" parent="Info/b/b1"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+placeholder_text = "Name"
+expand_to_text_length = true
+
+[node name="Actions" type="HBoxContainer" parent="Info/b/b1"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Action" type="CheckButton" parent="Info/b/b1/Actions"]
+layout_mode = 2
+tooltip_text = "Action"
+text = "A."
+
+[node name="Bonus" type="CheckButton" parent="Info/b/b1/Actions"]
+layout_mode = 2
+tooltip_text = "Bonus Action"
+text = "B."
+
+[node name="Mvt" type="CheckButton" parent="Info/b/b1/Actions"]
+layout_mode = 2
+tooltip_text = "Movement"
+text = "Mvt."
+alignment = 1
+
+[node name="Reaction" type="CheckButton" parent="Info/b/b1/Actions"]
+layout_mode = 2
+tooltip_text = "Reaction"
+text = "R."
+
+[node name="ItemInteraction" type="CheckButton" parent="Info/b/b1/Actions"]
+layout_mode = 2
+tooltip_text = "Item Interaction"
+text = "I.I."
+
+[node name="c1" type="HBoxContainer" parent="Info/b/b1"]
+layout_mode = 2
+
+[node name="HP" type="SpinBox" parent="Info/b/b1/c1"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.3
+tooltip_text = "HP"
+allow_greater = true
+allow_lesser = true
+alignment = 1
+suffix = "/100"
+
+[node name="b2" type="HBoxContainer" parent="Info/b"]
+layout_mode = 2
+
+[node name="Initiative" type="LineEdit" parent="Info/b/b2"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Initiative"
+placeholder_text = "Init."
+alignment = 1
+
+[node name="AC" type="LineEdit" parent="Info/b/b2"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Armor Class"
+placeholder_text = "AC"
+alignment = 1
+
+[node name="PP" type="LineEdit" parent="Info/b/b2"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Passive Perception"
+placeholder_text = "Passive Perc."
+alignment = 1
+expand_to_text_length = true
+
+[node name="VSeparator2" type="VSeparator" parent="Info/b/b2"]
+layout_mode = 2
+
+[node name="Speeds" type="HBoxContainer" parent="Info/b/b2"]
+layout_mode = 2
+
+[node name="Walk" type="LineEdit" parent="Info/b/b2/Speeds"]
+layout_mode = 2
+tooltip_text = "Walk Speed"
+placeholder_text = "Walk"
+alignment = 1
+
+[node name="Climb" type="LineEdit" parent="Info/b/b2/Speeds"]
+layout_mode = 2
+tooltip_text = "Climb Speed"
+placeholder_text = "Climb"
+alignment = 1
+
+[node name="Swim" type="LineEdit" parent="Info/b/b2/Speeds"]
+layout_mode = 2
+tooltip_text = "Swim Speed"
+placeholder_text = "Swim"
+alignment = 1
+
+[node name="Fly" type="LineEdit" parent="Info/b/b2/Speeds"]
+layout_mode = 2
+tooltip_text = "Fly Speed"
+placeholder_text = "Fly"
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Info"]
+layout_mode = 2
+
+[node name="StatusRect" type="ReferenceRect" parent="Info"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+border_color = Color(0.427493, 0.427493, 0.427493, 1)
+border_width = 3.0
+editor_only = false
+
+[node name="StatusScroll" type="ScrollContainer" parent="Info/StatusRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -33.0
+offset_right = 176.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Statuses" type="VBoxContainer" parent="Info/StatusRect/StatusScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Status" parent="Info/StatusRect/StatusScroll/Statuses" instance=ExtResource("2_43wlq")]
+layout_mode = 2
+
+[connection signal="toggled" from="Info/Selected" to="." method="_on_selected_toggled"]
+[connection signal="value_changed" from="Info/b/b1/c1/HP" to="." method="_on_hp_value_changed"]

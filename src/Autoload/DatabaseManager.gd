@@ -16,6 +16,13 @@ func add_pc(pc: Dictionary) -> void:
 	output_custom_jsons("PCs")
 	load_databases()
 
+func remove_pc(pc_name: String) -> void:
+	if pc_name not in custom_jsons["PCs"].keys():
+		return
+	custom_jsons["PCs"].erase(pc_name)
+	output_custom_jsons("PCs")
+	load_databases()
+
 func load_databases() -> void:
 	Utilities.load_jsons_from_dir(base_dir, json_dicts)
 	
