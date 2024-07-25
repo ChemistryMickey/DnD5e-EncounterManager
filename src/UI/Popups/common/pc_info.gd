@@ -1,6 +1,9 @@
 extends VBoxContainer
 
 func _ready():
+	_populate_spells()
+
+func _populate_spells():
 	$Spells/InSpellbook.clear()
 	var all_spells = []
 	for spell in DatabaseManager.json_dicts["spell-descriptions"].keys():
@@ -38,6 +41,7 @@ func to_dict() -> Dictionary:
 	return pc
 
 func load_from_dict(dict: Dictionary) -> void:
+	_populate_spells()
 	$Name.text = dict["Name"]
 	$Stats/AC.text = dict["AC"]
 	$Stats/MaxHP.text = dict["MaxHP"]
@@ -54,6 +58,11 @@ func load_from_dict(dict: Dictionary) -> void:
 	$Saves/CHA.text = dict["Saves"]["CHA"]
 	for spell in dict["Spells"]:
 		$Spells/InSpellbook.add_item(spell)
+				
+		for ind in range($Spells/Available.item_count):
+			if $Spells/Available.get_item_text(ind) == spell:
+				$Spells/Available.remove_item(ind)
+				break
 	$Spells/InSpellbook.sort_items_by_text()
 
 func clear() -> void:

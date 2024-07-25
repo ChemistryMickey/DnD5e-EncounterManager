@@ -1,0 +1,166 @@
+{
+	"Test": {
+		"Actions": "",
+		"Immunities": "",
+		"Languages": "",
+		"LegendaryActions/Description": "",
+		"LegendaryActions/NumLegActions": {
+			"max value": 100,
+			"value": 4
+		},
+		"Misc": "This is a test2",
+		"Movement/Climb": "",
+		"Movement/Fly": "",
+		"Movement/Swim": "",
+		"Movement/Walk": "",
+		"MultiAttack/Description": "",
+		"MultiAttack/NumAttacks": {
+			"max value": 100,
+			"value": 1
+		},
+		"Name": "Test",
+		"Reactions": "",
+		"Resistances": "",
+		"Saves/CHA": "",
+		"Saves/CON": "",
+		"Saves/DEX": "",
+		"Saves/INT": "",
+		"Saves/STR": "",
+		"Saves/WIS": "",
+		"SavingThrows/CHA": "",
+		"SavingThrows/CON": "",
+		"SavingThrows/DEX": "",
+		"SavingThrows/INT": "",
+		"SavingThrows/STR": "",
+		"SavingThrows/WIS": "",
+		"Senses": "",
+		"SpellSlots/1": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/2": {
+			"max value": 100,
+			"value": 4
+		},
+		"SpellSlots/3": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/4": {
+			"max value": 100,
+			"value": 3
+		},
+		"SpellSlots/5": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/6": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/7": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/8": {
+			"max value": 100,
+			"value": 0
+		},
+		"SpellSlots/9": {
+			"max value": 100,
+			"value": 4
+		},
+		"Spells/InSpellbook": [
+			"Aid",
+			"Alter Self",
+			"Animal Messenger",
+			"Animate Dead",
+			"Antimagic Field",
+			"Armor of Agathys"
+		],
+		"Stats/AC": "",
+		"Stats/MaxHP": "",
+		"Stats/PassivePerception": ""
+	},
+	"Test2": {
+		"Actions": "Too many",
+		"Immunities": "",
+		"Languages": "Many and varied. A cunning linguist you might say.",
+		"LegendaryActions/Description": "Too awesome to describe",
+		"LegendaryActions/NumLegActions": {
+			"max value": 100,
+			"value": 3
+		},
+		"Misc": "Misc stuff",
+		"Movement/Climb": "",
+		"Movement/Fly": "",
+		"Movement/Swim": "",
+		"Movement/Walk": "",
+		"MultiAttack/Description": "Dude",
+		"MultiAttack/NumAttacks": {
+			"max value": 100,
+			"value": 1
+		},
+		"Name": "Test2",
+		"Reactions": "Parry the Platypus",
+		"Resistances": "Text",
+		"Saves/CHA": "",
+		"Saves/CON": "",
+		"Saves/DEX": "",
+		"Saves/INT": "",
+		"Saves/STR": "",
+		"Saves/WIS": "",
+		"SavingThrows/CHA": "",
+		"SavingThrows/CON": "",
+		"SavingThrows/DEX": "",
+		"SavingThrows/INT": "",
+		"SavingThrows/STR": "",
+		"SavingThrows/WIS": "",
+		"Senses": "",
+		"SpellSlots/1": {
+			"max value": 100,
+			"value": 4
+		},
+		"SpellSlots/2": {
+			"max value": 100,
+			"value": 3
+		},
+		"SpellSlots/3": {
+			"max value": 100,
+			"value": 4
+		},
+		"SpellSlots/4": {
+			"max value": 100,
+			"value": 4
+		},
+		"SpellSlots/5": {
+			"max value": 100,
+			"value": 13
+		},
+		"SpellSlots/6": {
+			"max value": 100,
+			"value": 8
+		},
+		"SpellSlots/7": {
+			"max value": 100,
+			"value": 10
+		},
+		"SpellSlots/8": {
+			"max value": 100,
+			"value": 5
+		},
+		"SpellSlots/9": {
+			"max value": 100,
+			"value": 16
+		},
+		"Spells/InSpellbook": [
+			"Acid Splash",
+			"Alter Self",
+			"Animal Messenger",
+			"Animate Objects"
+		],
+		"Stats/AC": "",
+		"Stats/MaxHP": "",
+		"Stats/PassivePerception": ""
+	}
+}

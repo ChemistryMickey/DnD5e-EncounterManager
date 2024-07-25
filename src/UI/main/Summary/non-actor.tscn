@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 4
 color = Color(1, 1, 1, 0)
 script = ExtResource("1_cpi8o")
 
@@ -46,3 +47,4 @@ placeholder_text = "Description of non-actor event
 wrap_mode = 1
 
 [connection signal="toggled" from="Info/Selected" to="." method="_on_selected_toggled"]
+[connection signal="text_changed" from="Info/b/Initiative" to="." method="_on_initiative_text_changed"]

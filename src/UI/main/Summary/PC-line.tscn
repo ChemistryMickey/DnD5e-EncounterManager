@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuxlwfqro78in"]
+[gd_scene load_steps=2 format=3 uid="uid://cuxlwfqro78in"]
 
-[ext_resource type="Script" path="res://src/UI/main/Summary/PC.gd" id="1_p125l"]
-[ext_resource type="PackedScene" uid="uid://gdi13j0dfqpm" path="res://src/UI/main/Summary/status.tscn" id="2_43wlq"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/PC-line.gd" id="1_5e4sy"]
 
 [node name="PC" type="ColorRect"]
 custom_minimum_size = Vector2(0, 72)
@@ -12,9 +11,9 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+size_flags_vertical = 4
 color = Color(1, 1, 1, 0)
-script = ExtResource("1_p125l")
+script = ExtResource("1_5e4sy")
 
 [node name="Info" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -178,8 +177,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Status" parent="Info/StatusRect/StatusScroll/Statuses" instance=ExtResource("2_43wlq")]
-layout_mode = 2
-
 [connection signal="toggled" from="Info/Selected" to="." method="_on_selected_toggled"]
 [connection signal="value_changed" from="Info/b/b1/c1/HP" to="." method="_on_hp_value_changed"]
+[connection signal="text_changed" from="Info/b/b2/Initiative" to="." method="_on_initiative_text_changed"]

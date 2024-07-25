@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjdpdv5kuk7a1"]
+[gd_scene load_steps=3 format=3 uid="uid://bjdpdv5kuk7a1"]
 
 [ext_resource type="Script" path="res://src/UI/main/Summary/summary.gd" id="1_e05e4"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/Actors.gd" id="2_kgvjd"]
 
 [node name="Summary" type="VBoxContainer"]
 anchors_preset = 15
@@ -31,11 +32,15 @@ layout_mode = 2
 text = "Edit"
 flat = false
 switch_on_hover = true
-item_count = 2
+item_count = 4
 popup/item_0/text = "Manage PCs"
 popup/item_0/id = 0
 popup/item_1/text = "Define PC"
 popup/item_1/id = 1
+popup/item_2/text = "Manage NPCs"
+popup/item_2/id = 2
+popup/item_3/text = "Define NPC"
+popup/item_3/id = 3
 
 [node name="Options" type="MenuButton" parent="TopBar"]
 layout_mode = 2
@@ -100,26 +105,26 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.5
 text = "Sort By"
 flat = false
-item_count = 4
+item_count = 1
 popup/item_0/text = "Initiative"
 popup/item_0/id = 0
-popup/item_1/text = "Name"
-popup/item_1/id = 1
-popup/item_2/text = "Health"
-popup/item_2/id = 2
-popup/item_3/text = "AC"
-popup/item_3/id = 3
+
+[node name="Up" type="Button" parent="ControlButtons"]
+layout_mode = 2
+tooltip_text = "Move first selected actor up in initiative order"
+text = "↑"
+
+[node name="Down" type="Button" parent="ControlButtons"]
+layout_mode = 2
+tooltip_text = "Move first selected actor down in initiative order"
+text = "↓"
 
 [node name="Spacer" type="Control" parent="ControlButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Round" type="SpinBox" parent="ControlButtons/HBoxContainer"]
+[node name="Round" type="SpinBox" parent="ControlButtons"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 max_value = 1000.0
@@ -146,6 +151,15 @@ layout_mode = 2
 tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
 text = "Add Non-Actor"
 
+[node name="Spacer3" type="Control" parent="ControlButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="RemoveSelected" type="Button" parent="ControlButtons"]
+layout_mode = 2
+text = "Remove Selected"
+
 [node name="HSeparator2" type="HSeparator" parent="."]
 layout_mode = 2
 
@@ -160,31 +174,49 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Actors" type="VBoxContainer" parent="InfoOptions/Info"]
+[node name="Actors" type="VBoxContainer" parent="InfoOptions/Info" groups=["Persist"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("2_kgvjd")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="InfoOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+border_color = Color(0.480881, 0.458935, 0.514109, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="OptionTray" type="HBoxContainer" parent="InfoOptions/ReferenceRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="ToolScroll" type="ScrollContainer" parent="InfoOptions/ReferenceRect/OptionTray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tools" type="VBoxContainer" parent="InfoOptions/ReferenceRect/OptionTray/ToolScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="OptionTray" type="HBoxContainer" parent="InfoOptions"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ToolScroll" type="ScrollContainer" parent="InfoOptions/OptionTray"]
+[node name="ActionScroll" type="ScrollContainer" parent="InfoOptions/ReferenceRect/OptionTray"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Tools" type="VBoxContainer" parent="InfoOptions/OptionTray/ToolScroll"]
+[node name="Actions" type="VBoxContainer" parent="InfoOptions/ReferenceRect/OptionTray/ActionScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ActionScroll" type="ScrollContainer" parent="InfoOptions/OptionTray"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Actions" type="VBoxContainer" parent="InfoOptions/OptionTray/ActionScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
+[connection signal="pressed" from="ControlButtons/Up" to="InfoOptions/Info/Actors" method="_on_up_pressed"]
+[connection signal="pressed" from="ControlButtons/Down" to="InfoOptions/Info/Actors" method="_on_down_pressed"]
 [connection signal="pressed" from="ControlButtons/AddNonActor" to="." method="_on_add_non_actor_pressed"]
+[connection signal="pressed" from="ControlButtons/RemoveSelected" to="." method="_on_remove_selected_pressed"]

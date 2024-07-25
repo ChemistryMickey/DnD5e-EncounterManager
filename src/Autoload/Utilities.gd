@@ -32,12 +32,38 @@ func output_json(path: String, dict: Dictionary) -> void:
 	#NOTE: FileAccess objects close when they go out of scope so it doesn't need to be closed
 
 func recursive_clear_lineedits(children: Array[Node]) -> void:
+	# DEPRICATED. Use recursive_clear_text instead
 	for child in children:
 		if child.get_child_count() != 0:
 			recursive_clear_lineedits(child.get_children())
 		
 		if child is LineEdit:
 			child.text = ""
+
+func recursive_clear_textedits(children: Array[Node]) -> void:
+	# DEPRICATED. Use recursive_clear_text instead
+	for child in children:
+		if child.get_child_count() != 0:
+			recursive_clear_textedits(child.get_children())
+		
+		if child is TextEdit:
+			child.text = ""
+
+func recursive_clear_text(children: Array[Node]) -> void:
+	for child in children:
+		if child.get_child_count() != 0:
+			recursive_clear_text(child.get_children())
+		
+		if child is TextEdit or child is LineEdit:
+			child.text = ""
+
+func recursive_clear_spinbox(children: Array[Node]) -> void:
+	for child in children:
+		if child.get_child_count() != 0:
+			recursive_clear_spinbox(child.get_children())
+		
+		if child is SpinBox:
+			child.set_value_no_signal(0)
 
 func recursive_dict_merge(dict1: Dictionary, dict2: Dictionary) -> Dictionary:
 	var merged_dict = {}
@@ -55,6 +81,31 @@ func recursive_dict_merge(dict1: Dictionary, dict2: Dictionary) -> Dictionary:
 		else:
 			merged_dict[key] = dict2[key]
 	return merged_dict
+
+func recursive_construct_savable_child_dict(children: Array[Node], mutable_dict: Dictionary, parent_name: String, cur_depth: int = 0) -> void:
+	for child in children:
+		var full_name
+		if cur_depth == 0:
+			full_name = child.name
+		else:
+			full_name = "%s/%s" % [parent_name, child.name]
+			
+		if child.get_child_count() > 0:
+			recursive_construct_savable_child_dict(child.get_children(), mutable_dict, full_name, cur_depth + 1)
+		
+		if child is LineEdit:
+			mutable_dict[full_name] = child.text
+			#print("I'm a line edit! %s" % full_name)
+		elif child is TextEdit:
+			mutable_dict[full_name] = child.text
+			#print("I'm a text edit! %s" % full_name)
+		elif child is SpinBox:
+			mutable_dict[full_name] = {"value": child.value, "max value": child.max_value}
+			#print("I's a spin box! %s" % full_name)
+		elif child is CheckButton:
+			mutable_dict[full_name] = child.toggle_mode
+			#print("I'm a check button! %s" % full_name)
+	return
 
 func strip_bbcode_tags(str_in: String) -> String:
 	var regex = RegEx.new()

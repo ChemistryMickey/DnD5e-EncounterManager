@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7wmuko6w27gn"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/ManageNPCs/manage_np_cs.gd" id="1_1gu54"]
+[ext_resource type="PackedScene" uid="uid://b5ysbh403r70u" path="res://src/UI/Popups/common/npc_info.tscn" id="2_f6dx8"]
+
+[node name="ManageNPCs" type="Window"]
+title = "Manage NPCs"
+initial_position = 2
+size = Vector2i(800, 600)
+script = ExtResource("1_1gu54")
+
+[node name="a" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="b" type="HBoxContainer" parent="a"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="c1" type="VBoxContainer" parent="a/b"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+alignment = 1
+
+[node name="Label" type="Label" parent="a/b/c1"]
+layout_mode = 2
+text = "NPCs:"
+
+[node name="NPC_list" type="ItemList" parent="a/b/c1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="VSeparator" type="VSeparator" parent="a/b"]
+layout_mode = 2
+
+[node name="c2" type="VBoxContainer" parent="a/b"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="a/b/c2"]
+layout_mode = 2
+text = "Info:"
+
+[node name="npc_info" parent="a/b/c2" instance=ExtResource("2_f6dx8")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="a"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="a/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="SaveOverwrite" type="Button" parent="a/Buttons"]
+layout_mode = 2
+text = "Save/Overwrite NPC"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_activated" from="a/b/c1/NPC_list" to="." method="_on_npc_list_item_activated"]
+[connection signal="pressed" from="a/Buttons/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="a/Buttons/SaveOverwrite" to="." method="_on_save_overwrite_pressed"]

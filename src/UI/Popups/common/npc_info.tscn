@@ -1,0 +1,418 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5ysbh403r70u"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/common/npc_info.gd" id="1_ik5ui"]
+
+[node name="npc_info" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ik5ui")
+
+[node name="b" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="LineEdit" parent="b"]
+layout_mode = 2
+placeholder_text = "Name"
+alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="b"]
+layout_mode = 2
+
+[node name="AC" type="LineEdit" parent="b/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Armor Class"
+placeholder_text = "AC"
+alignment = 1
+
+[node name="MaxHP" type="LineEdit" parent="b/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Max HP"
+placeholder_text = "Max HP"
+alignment = 1
+
+[node name="PassivePerception" type="LineEdit" parent="b/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Passive Perception"
+placeholder_text = "Passive Perception"
+alignment = 1
+expand_to_text_length = true
+
+[node name="HSeparator" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="SpeedsLabel" type="Label" parent="b"]
+layout_mode = 2
+text = "Movement Speeds:"
+
+[node name="Movement" type="HBoxContainer" parent="b"]
+layout_mode = 2
+
+[node name="Walk" type="LineEdit" parent="b/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Walking"
+placeholder_text = "Walk"
+alignment = 1
+
+[node name="Climb" type="LineEdit" parent="b/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Climbing"
+placeholder_text = "Climb"
+alignment = 1
+
+[node name="Swim" type="LineEdit" parent="b/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Swimming"
+placeholder_text = "Swim"
+alignment = 1
+
+[node name="Fly" type="LineEdit" parent="b/Movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Flying"
+placeholder_text = "Fly"
+alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="SavesLabel" type="Label" parent="b"]
+layout_mode = 2
+text = "Saves:"
+
+[node name="Saves" type="HBoxContainer" parent="b"]
+layout_mode = 2
+
+[node name="STR" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "STR"
+placeholder_text = "STR"
+alignment = 1
+
+[node name="DEX" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "DEX"
+placeholder_text = "DEX"
+alignment = 1
+
+[node name="CON" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "CON"
+placeholder_text = "CON"
+alignment = 1
+
+[node name="INT" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "INT"
+placeholder_text = "INT"
+alignment = 1
+
+[node name="WIS" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "WIS"
+placeholder_text = "WIS"
+alignment = 1
+
+[node name="CHA" type="LineEdit" parent="b/Saves"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "CHA"
+placeholder_text = "CHA"
+alignment = 1
+
+[node name="SavesLabel2" type="Label" parent="b"]
+layout_mode = 2
+text = "Additional Saving Throws:"
+
+[node name="SavingThrows" type="HBoxContainer" parent="b"]
+layout_mode = 2
+
+[node name="STR" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "STR"
+placeholder_text = "STR"
+alignment = 1
+
+[node name="DEX" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "DEX"
+placeholder_text = "DEX"
+alignment = 1
+
+[node name="CON" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "CON"
+placeholder_text = "CON"
+alignment = 1
+
+[node name="INT" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "INT"
+placeholder_text = "INT"
+alignment = 1
+
+[node name="WIS" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "WIS"
+placeholder_text = "WIS"
+alignment = 1
+
+[node name="CHA" type="LineEdit" parent="b/SavingThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "CHA"
+placeholder_text = "CHA"
+alignment = 1
+
+[node name="SavesLabel3" type="Label" parent="b"]
+layout_mode = 2
+text = "Resistances:"
+
+[node name="Resistances" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+placeholder_text = "Resistances"
+wrap_mode = 1
+
+[node name="SavesLabel4" type="Label" parent="b"]
+layout_mode = 2
+text = "Immunities:"
+
+[node name="Immunities" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+placeholder_text = "Immunities"
+wrap_mode = 1
+
+[node name="SavesLabel5" type="Label" parent="b"]
+layout_mode = 2
+text = "Senses:"
+
+[node name="Senses" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+placeholder_text = "Senses (e.g. truesight 120ft)"
+wrap_mode = 1
+
+[node name="SavesLabel6" type="Label" parent="b"]
+layout_mode = 2
+text = "Languages:"
+
+[node name="Languages" type="LineEdit" parent="b"]
+layout_mode = 2
+placeholder_text = "Languages"
+
+[node name="HSeparator2" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="SpellsLabel2" type="Label" parent="b"]
+layout_mode = 2
+text = "Spell Slots:"
+
+[node name="SpellSlots" type="GridContainer" parent="b"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 3
+
+[node name="1" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "1st: "
+
+[node name="2" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "2nd: "
+
+[node name="3" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "3rd: "
+
+[node name="4" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "4th: "
+
+[node name="5" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "5th: "
+
+[node name="6" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "6th: "
+
+[node name="7" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "7th: "
+
+[node name="8" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "8th: "
+
+[node name="9" type="SpinBox" parent="b/SpellSlots"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+prefix = "9th: "
+
+[node name="SpellsLabel" type="Label" parent="b"]
+layout_mode = 2
+text = "Spells (optional):"
+
+[node name="Spells" type="HBoxContainer" parent="b"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Available" type="ItemList" parent="b/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells Available to Learn"
+
+[node name="Buttons" type="VBoxContainer" parent="b/Spells"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="AddSpell" type="Button" parent="b/Spells/Buttons"]
+layout_mode = 2
+text = "→"
+
+[node name="RemoveSpell" type="Button" parent="b/Spells/Buttons"]
+layout_mode = 2
+text = "←"
+
+[node name="InSpellbook" type="ItemList" parent="b/Spells"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spells in Player Spellbook"
+
+[node name="HSeparator3" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="ActionsLabel" type="Label" parent="b"]
+layout_mode = 2
+text = "Actions:"
+
+[node name="MultiAttack" type="HBoxContainer" parent="b"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="b/MultiAttack"]
+layout_mode = 2
+text = "Multiattack:"
+
+[node name="Control" type="Control" parent="b/MultiAttack"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NumAttacks" type="SpinBox" parent="b/MultiAttack"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+value = 1.0
+alignment = 1
+prefix = "# Total Attacks: "
+
+[node name="Description" type="TextEdit" parent="b/MultiAttack"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Description of Multiattack
+(e.g. one with bite, one with tail)"
+
+[node name="Actions" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+placeholder_text = "Actions"
+wrap_mode = 1
+
+[node name="HSeparator5" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="ReactionsLabel" type="Label" parent="b"]
+layout_mode = 2
+text = "Reactions:"
+
+[node name="Reactions" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+placeholder_text = "Reactions
+(e.g. Death Knight's Parry)"
+wrap_mode = 1
+
+[node name="HSeparator6" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="LegendaryActions" type="HBoxContainer" parent="b"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="LegendaryActionsLabel" type="Label" parent="b/LegendaryActions"]
+layout_mode = 2
+text = "Legendary Actions:"
+
+[node name="Control" type="Control" parent="b/LegendaryActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NumLegActions" type="SpinBox" parent="b/LegendaryActions"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+prefix = "# Leg. Actions: "
+
+[node name="Description" type="TextEdit" parent="b/LegendaryActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Description of Legendary Actions"
+
+[node name="HSeparator7" type="HSeparator" parent="b"]
+layout_mode = 2
+
+[node name="Misc" type="TextEdit" parent="b"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+placeholder_text = "Miscellaneous Additional Notes"
+wrap_mode = 1
+
+[connection signal="pressed" from="b/Spells/Buttons/AddSpell" to="." method="_on_add_spell_pressed"]
+[connection signal="pressed" from="b/Spells/Buttons/RemoveSpell" to="." method="_on_remove_spell_pressed"]

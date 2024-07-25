@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2c1057aj2807"]
+
+[ext_resource type="Script" path="res://src/UI/Popups/AddNPC/add_npc_popup.gd" id="1_sdcgr"]
+[ext_resource type="PackedScene" uid="uid://b5ysbh403r70u" path="res://src/UI/Popups/common/npc_info.tscn" id="2_t8iy2"]
+
+[node name="AddNPCPopup" type="Window"]
+title = "Add NPC"
+initial_position = 2
+size = Vector2i(800, 600)
+script = ExtResource("1_sdcgr")
+
+[node name="a" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="npc_info" parent="a" instance=ExtResource("2_t8iy2")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="a"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="a"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Cancel" type="Button" parent="a/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Save" type="Button" parent="a/Buttons"]
+layout_mode = 2
+text = "Save"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="a/Buttons/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="a/Buttons/Save" to="." method="_on_save_pressed"]

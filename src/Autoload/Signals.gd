@@ -6,11 +6,15 @@ signal show_notes()
 signal show_spellbook()
 signal show_help()
 signal show_add_PC()
+signal show_add_NPC()
 signal show_manage_PCs()
+signal show_manage_NPCs()
+signal show_add_NPCs_to_initative()
 
 # Spellbook
 signal update_spellbook()
 signal update_PCs()
+signal update_NPCs()
 
 # Interactions
 signal request_save()
@@ -19,6 +23,7 @@ signal request_quit()
 
 # Actor Specific
 signal status_changed(actor_name: String)
+signal add_NPC_to_initiative(npc_name: String)
 
 ### Character summary
 #signal class_updated(class_choice)

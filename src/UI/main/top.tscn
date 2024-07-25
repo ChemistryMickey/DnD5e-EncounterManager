@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cps0o1mrwns0y"]
+[gd_scene load_steps=15 format=3 uid="uid://cps0o1mrwns0y"]
 
 [ext_resource type="Script" path="res://src/UI/main/top.gd" id="1_y8af6"]
 [ext_resource type="Script" path="res://src/UI/Popups/ScratchWindow/ScratchWindow.gd" id="2_kj7xx"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://f7hu8qg42gq3" path="res://src/UI/Popups/AddPC/add_pc_popup.tscn" id="6_ak5do"]
 [ext_resource type="PackedScene" uid="uid://485pr8rsfr3g" path="res://src/UI/Popups/ManagePCs/manage_PCs.tscn" id="7_x60dx"]
 [ext_resource type="PackedScene" uid="uid://dc61gy1nh5for" path="res://src/UI/Popups/Help/help.tscn" id="8_qjqv2"]
+[ext_resource type="PackedScene" uid="uid://c2c1057aj2807" path="res://src/UI/Popups/AddNPC/add_npc_popup.tscn" id="9_ih87s"]
+[ext_resource type="PackedScene" uid="uid://c7wmuko6w27gn" path="res://src/UI/Popups/ManageNPCs/manage_np_cs.tscn" id="10_gaq5r"]
+[ext_resource type="PackedScene" uid="uid://ulgjhknvq8vo" path="res://src/UI/Popups/AddNPCToInitative/add_npc_to_initiative.tscn" id="11_27r18"]
 
 [sub_resource type="Animation" id="Animation_r16hr"]
 length = 0.001
@@ -113,6 +116,14 @@ visible = false
 
 [node name="Help" parent="." instance=ExtResource("8_qjqv2")]
 visible = false
+
+[node name="AddNPCPopup" parent="." instance=ExtResource("9_ih87s")]
+visible = false
+
+[node name="ManageNPCs" parent="." instance=ExtResource("10_gaq5r")]
+visible = false
+
+[node name="AddNPCToInitiative" parent="." instance=ExtResource("11_27r18")]
 
 [connection signal="file_selected" from="SaveFile" to="." method="_on_SaveFile_file_selected"]
 [connection signal="file_selected" from="LoadFile" to="." method="_on_LoadFile_file_selected"]
