@@ -124,6 +124,7 @@ visible = false
 visible = false
 
 [node name="AddNPCToInitiative" parent="." instance=ExtResource("11_27r18")]
+visible = false
 
 [connection signal="file_selected" from="SaveFile" to="." method="_on_SaveFile_file_selected"]
 [connection signal="file_selected" from="LoadFile" to="." method="_on_LoadFile_file_selected"]

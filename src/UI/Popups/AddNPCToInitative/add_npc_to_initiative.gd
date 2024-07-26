@@ -3,7 +3,7 @@ extends Window
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Signals.connect("show_add_NPCs_to_initative", func(): self.visible = true): print("Unable to connect!")
+	if Signals.connect("show_add_NPC_to_initative", func(): self.visible = true): print("Unable to connect!")
 	if Signals.connect("update_NPCs", _populate_NPCs): print("Unable to connect!")
 	_populate_NPCs()
 	
@@ -19,6 +19,8 @@ func _on_add_pressed():
 		
 	var selected_name = $vb/NPC_list.get_item_text(selected_inds[0])
 	Signals.emit_signal("add_NPC_to_initiative", selected_name)
+	Signals.emit_signal("add_new_actor_to_initiative")
+	_on_close_requested()
 
 func _on_close_requested():
 	self.visible = false

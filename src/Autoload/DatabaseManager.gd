@@ -27,6 +27,13 @@ func add_npc(npc: Dictionary) -> void:
 	custom_jsons["NPCs"][npc["Name"]] = npc
 	output_custom_jsons("NPCs")
 	load_databases()
+	
+func remove_npc(npc_name: String) -> void:
+	if npc_name not in custom_jsons["NPCs"].keys():
+		return
+	custom_jsons["NPCs"].erase(npc_name)
+	output_custom_jsons("NPCs")
+	load_databases()
 
 func load_databases() -> void:
 	Utilities.load_jsons_from_dir(base_dir, json_dicts)

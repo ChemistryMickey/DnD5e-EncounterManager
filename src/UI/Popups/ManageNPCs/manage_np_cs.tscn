@@ -35,6 +35,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+select_mode = 1
 
 [node name="VSeparator" type="VSeparator" parent="a/b"]
 layout_mode = 2
@@ -56,15 +57,21 @@ size_flags_vertical = 3
 layout_mode = 2
 alignment = 1
 
-[node name="Cancel" type="Button" parent="a/Buttons"]
+[node name="Remove" type="Button" parent="a/Buttons"]
 layout_mode = 2
-text = "Cancel"
+text = "Remove Selected NPCs"
 
 [node name="SaveOverwrite" type="Button" parent="a/Buttons"]
 layout_mode = 2
 text = "Save/Overwrite NPC"
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Delete PCs"
+initial_position = 2
+size = Vector2i(206, 100)
+dialog_text = "Confirm deletion of PCs?"
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_activated" from="a/b/c1/NPC_list" to="." method="_on_npc_list_item_activated"]
-[connection signal="pressed" from="a/Buttons/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="a/Buttons/Remove" to="." method="_on_remove_pressed"]
 [connection signal="pressed" from="a/Buttons/SaveOverwrite" to="." method="_on_save_overwrite_pressed"]

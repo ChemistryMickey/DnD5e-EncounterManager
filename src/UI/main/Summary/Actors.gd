@@ -2,14 +2,29 @@ extends VBoxContainer
 
 @onready var pc_template = preload("res://src/UI/main/Summary/PC-line.tscn")
 @onready var non_actor_template = preload("res://src/UI/main/Summary/non-actor.tscn")
+@onready var npc_template = preload("res://src/UI/main/Summary/NPC-line.tscn")
 
 var cur_init_ind = 0
 
 func _ready():
 	if Signals.connect("add_NPC_to_initiative", _add_npc_to_initiative): print("Unable to connect to add_NPC_to_initiative!")
+	Signals.connect("next_turn", _reset_action_economy)
+	
+func _reset_action_economy(ind: int):
+	if ind >= self.get_child_count():
+		print("How did you get here? Requested ind: %d, N_children: %d" % [ind, self.get_child_count()])
+		return
+		
+	var selected_actor = self.get_children()[ind]
+	if selected_actor is PC_line or selected_actor is NPC_line:
+		selected_actor.reset_action_economy()
 
 func _add_npc_to_initiative(npc_name: String):
-	print("TODO: Create an NPC template and put in NPC %s" % npc_name)
+	var npc_dict = DatabaseManager.custom_jsons["NPCs"][npc_name]
+	var new_npc = npc_template.instantiate()
+	new_npc.from_npc_dict(npc_dict)
+	
+	self.add_child(new_npc)
 
 func save() -> Dictionary:
 	var actors = []
@@ -35,9 +50,8 @@ func load_sheet(dict: Dictionary) -> void:
 func _get_ind_to_move() -> int:
 	var ind_to_move = 0
 	for actor in self.get_children():
-		if actor is PC_line or actor is NonActor:
-			if actor.selected:
-				break
+		if actor.selected:
+			break
 		ind_to_move += 1
 	return ind_to_move
 

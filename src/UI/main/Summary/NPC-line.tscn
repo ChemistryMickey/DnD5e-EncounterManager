@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuxlwfqro78in"]
+[gd_scene load_steps=2 format=3 uid="uid://dxg0gv51x2lng"]
 
-[ext_resource type="Script" path="res://src/UI/main/Summary/PC-line.gd" id="1_5e4sy"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/NPC-line.gd" id="1_weld1"]
 
-[node name="PC" type="ColorRect"]
+[node name="NPC" type="ColorRect"]
 custom_minimum_size = Vector2(0, 72)
 anchors_preset = 14
 anchor_top = 0.5
@@ -13,7 +13,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 color = Color(1, 1, 1, 0)
-script = ExtResource("1_5e4sy")
+script = ExtResource("1_weld1")
 
 [node name="Info" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -92,7 +92,11 @@ suffix = "/100"
 
 [node name="b2" type="HBoxContainer" parent="Info/b"]
 layout_mode = 2
-size_flags_horizontal = 0
+alignment = 2
+
+[node name="StatusColor" type="ColorRect" parent="Info/b/b2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 
 [node name="Initiative" type="LineEdit" parent="Info/b/b2"]
 layout_mode = 2
@@ -100,6 +104,10 @@ size_flags_horizontal = 4
 tooltip_text = "Initiative"
 placeholder_text = "Init."
 alignment = 1
+
+[node name="Control" type="Control" parent="Info/b/b2"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="AC" type="LineEdit" parent="Info/b/b2"]
 layout_mode = 2

@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjdpdv5kuk7a1"]
+[gd_scene load_steps=5 format=3 uid="uid://bjdpdv5kuk7a1"]
 
 [ext_resource type="Script" path="res://src/UI/main/Summary/summary.gd" id="1_e05e4"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/Turn.gd" id="2_6uov0"]
 [ext_resource type="Script" path="res://src/UI/main/Summary/Actors.gd" id="2_kgvjd"]
 
-[node name="Summary" type="VBoxContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xi32"]
+bg_color = Color(0.243137, 0.552941, 0, 1)
+
+[node name="Summary" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,10 +16,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e05e4")
 
-[node name="TopBar" type="HBoxContainer" parent="."]
+[node name="vb" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="HBoxContainer" parent="vb"]
 layout_mode = 2
 
-[node name="File" type="MenuButton" parent="TopBar"]
+[node name="File" type="MenuButton" parent="vb/TopBar"]
 layout_mode = 2
 text = "File"
 flat = false
@@ -27,7 +40,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Quit     (Ctrl + Q)"
 popup/item_2/id = 2
 
-[node name="Edit" type="MenuButton" parent="TopBar"]
+[node name="Edit" type="MenuButton" parent="vb/TopBar"]
 layout_mode = 2
 text = "Edit"
 flat = false
@@ -42,7 +55,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Define NPC"
 popup/item_3/id = 3
 
-[node name="Options" type="MenuButton" parent="TopBar"]
+[node name="Options" type="MenuButton" parent="vb/TopBar"]
 layout_mode = 2
 text = "Options"
 flat = false
@@ -62,44 +75,51 @@ popup/item_4/id = 4
 popup/item_5/text = "Show Help"
 popup/item_5/id = 5
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="Control" type="Control" parent="vb/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="AddPC" type="MenuButton" parent="vb/TopBar"]
+layout_mode = 2
+text = "Add PC"
+flat = false
+
+[node name="AddNPC" type="Button" parent="vb/TopBar"]
+layout_mode = 2
+text = "Add NPC"
+
+[node name="AddNonActor" type="Button" parent="vb/TopBar"]
+layout_mode = 2
+tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
+text = "Add Non-Actor"
+
+[node name="Control2" type="Control" parent="vb/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RemoveSelected" type="Button" parent="vb/TopBar"]
+layout_mode = 2
+text = "Remove Selected"
+
+[node name="HSeparator" type="HSeparator" parent="vb"]
 layout_mode = 2
 
-[node name="ControlButtons" type="HBoxContainer" parent="."]
+[node name="ControlButtons" type="HBoxContainer" parent="vb"]
 layout_mode = 2
 alignment = 2
 
-[node name="ColorRect" type="ColorRect" parent="ControlButtons"]
-custom_minimum_size = Vector2(175, 0)
+[node name="StartContEncounter" type="Button" parent="vb/ControlButtons"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-color = Color(1, 1, 1, 0.215686)
+tooltip_text = "Start the encounter.
+- Increments round 1 and turn to 1
+- Shows current turn highlight
+- Changes this button into \"Next Turn\""
+theme_override_styles/normal = SubResource("StyleBoxFlat_0xi32")
+text = "Start Encounter"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlButtons/ColorRect"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -15.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Label" type="Label" parent="ControlButtons/ColorRect/HBoxContainer"]
-layout_mode = 2
-text = "Turn Counter:"
-
-[node name="IncrementInitiative" type="Button" parent="ControlButtons/ColorRect/HBoxContainer"]
-layout_mode = 2
-text = "+1"
-
-[node name="DecrementInitiative" type="Button" parent="ControlButtons/ColorRect/HBoxContainer"]
-layout_mode = 2
-text = "-1"
-
-[node name="Sort" type="MenuButton" parent="ControlButtons"]
+[node name="Sort" type="MenuButton" parent="vb/ControlButtons"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 0.5
@@ -109,22 +129,22 @@ item_count = 1
 popup/item_0/text = "Initiative"
 popup/item_0/id = 0
 
-[node name="Up" type="Button" parent="ControlButtons"]
+[node name="Up" type="Button" parent="vb/ControlButtons"]
 layout_mode = 2
 tooltip_text = "Move first selected actor up in initiative order"
 text = "↑"
 
-[node name="Down" type="Button" parent="ControlButtons"]
+[node name="Down" type="Button" parent="vb/ControlButtons"]
 layout_mode = 2
 tooltip_text = "Move first selected actor down in initiative order"
 text = "↓"
 
-[node name="Spacer" type="Control" parent="ControlButtons"]
+[node name="Spacer" type="Control" parent="vb/ControlButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="Round" type="SpinBox" parent="ControlButtons"]
+[node name="Round" type="SpinBox" parent="vb/ControlButtons"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 max_value = 1000.0
@@ -132,64 +152,47 @@ rounded = true
 alignment = 1
 prefix = "Round #: "
 
-[node name="Spacer2" type="Control" parent="ControlButtons"]
+[node name="Turn" type="SpinBox" parent="vb/ControlButtons"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
+tooltip_text = "Sets the position of the turn indicator highlight bar.
 
-[node name="AddPC" type="MenuButton" parent="ControlButtons"]
-layout_mode = 2
-text = "Add PC"
-flat = false
-
-[node name="AddNPC" type="Button" parent="ControlButtons"]
-layout_mode = 2
-text = "Add NPC"
-
-[node name="AddNonActor" type="Button" parent="ControlButtons"]
-layout_mode = 2
-tooltip_text = "More customizable for things like Lair Actions, Ambushes/Reinforcements, etc."
-text = "Add Non-Actor"
-
-[node name="Spacer3" type="Control" parent="ControlButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-
-[node name="RemoveSelected" type="Button" parent="ControlButtons"]
-layout_mode = 2
-text = "Remove Selected"
-
-[node name="HSeparator2" type="HSeparator" parent="."]
-layout_mode = 2
-
-[node name="HSeparator3" type="HSeparator" parent="."]
-layout_mode = 2
-
-[node name="InfoOptions" type="VSplitContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Info" type="ScrollContainer" parent="InfoOptions"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Actors" type="VBoxContainer" parent="InfoOptions/Info" groups=["Persist"]]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+Increment or decrement this number to move 
+the turn indicator withoutresetting action economy"
+max_value = 0.0
 alignment = 1
+prefix = "Turn #: "
+suffix = "/0"
+script = ExtResource("2_6uov0")
+
+[node name="HSeparator2" type="HSeparator" parent="vb"]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="vb"]
+layout_mode = 2
+
+[node name="InfoOptions" type="VSplitContainer" parent="vb"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Info" type="ScrollContainer" parent="vb/InfoOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Actors" type="VBoxContainer" parent="vb/InfoOptions/Info" groups=["Persist"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("2_kgvjd")
 
-[node name="ReferenceRect" type="ReferenceRect" parent="InfoOptions"]
+[node name="ReferenceRect" type="ReferenceRect" parent="vb/InfoOptions"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 1
-border_color = Color(0.480881, 0.458935, 0.514109, 1)
-border_width = 2.0
+border_color = Color(0.396889, 0.396889, 0.396889, 1)
+border_width = 4.0
 editor_only = false
 
-[node name="OptionTray" type="HBoxContainer" parent="InfoOptions/ReferenceRect"]
+[node name="OptionTray" type="HSplitContainer" parent="vb/InfoOptions/ReferenceRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,25 +201,215 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 
-[node name="ToolScroll" type="ScrollContainer" parent="InfoOptions/ReferenceRect/OptionTray"]
+[node name="ActionScroll" type="ScrollContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Tools" type="VBoxContainer" parent="InfoOptions/ReferenceRect/OptionTray/ToolScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ActionScroll" type="ScrollContainer" parent="InfoOptions/ReferenceRect/OptionTray"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Actions" type="VBoxContainer" parent="InfoOptions/ReferenceRect/OptionTray/ActionScroll"]
+[node name="ActionEconomy" type="HBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="pressed" from="ControlButtons/Up" to="InfoOptions/Info/Actors" method="_on_up_pressed"]
-[connection signal="pressed" from="ControlButtons/Down" to="InfoOptions/Info/Actors" method="_on_down_pressed"]
-[connection signal="pressed" from="ControlButtons/AddNonActor" to="." method="_on_add_non_actor_pressed"]
-[connection signal="pressed" from="ControlButtons/RemoveSelected" to="." method="_on_remove_selected_pressed"]
+[node name="Actions" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+text = "Actions:"
+
+[node name="hb" type="HBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+alignment = 1
+
+[node name="Attack" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Attack"
+
+[node name="SpinBox" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb"]
+layout_mode = 2
+value = 1.0
+alignment = 2
+prefix = "#: "
+
+[node name="CastSpell" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+text = "Cast Spell"
+
+[node name="Dash" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Doubles movement speed (after modifiers)
+(e.g., with a base speed of 30 and a buff of 10, dashing gives you 80 feet of movement)"
+text = "Dash"
+
+[node name="Disengage" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Movement doesn't provoke an attack of opportunity for the rest of the turn"
+text = "Disengage
+"
+
+[node name="Dodge" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Attack rolls against you have disadvantage if you can see the attacker and make DEX saves with advantage.
+If your speed drops to zero, you lose these benefits."
+text = "Dodge
+"
+
+[node name="Help" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Give advantage to an ally on an ability check 
+OR 
+attacking a creature within 5 feet of you before your next turn (i.e. distracting it)"
+text = "Help"
+
+[node name="Hide" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+text = "Hide"
+
+[node name="Ready" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Lets you act using your reaction before the start of your next turn.
+
+Decide a trigger now. That prompts the reaction.
+You may both move and take an action during a readied action (if you have remaining movement)
+
+Readying a spell costs a spell slot at the time of the ready action 
+and is concentration between the ready action and the trigger.
+This does end any other concentration spells!"
+text = "Ready"
+
+[node name="Search" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+text = "Search"
+
+[node name="UseObject" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Item interaction lets you do small things (e.g. draw a sword or open an unlocked door) 
+but longer or more involved interactions require an action."
+text = "Use Object"
+
+[node name="Misc" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions"]
+layout_mode = 2
+tooltip_text = "Any other action not here enumerated"
+text = "Misc"
+
+[node name="BonusActions" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+text = "Bonus Actions:
+(Class/Item Specific)"
+
+[node name="CastSpell" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+text = "Cast Spell"
+
+[node name="Dash" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+tooltip_text = "Doubles movement speed (after modifiers)
+(e.g., with a base speed of 30 and a buff of 10, dashing gives you 80 feet of movement)"
+text = "Dash"
+
+[node name="Disengage" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+tooltip_text = "Movement doesn't provoke an attack of opportunity for the rest of the turn"
+text = "Disengage
+"
+
+[node name="Dodge" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+tooltip_text = "Attack rolls against you have disadvantage if you can see the attacker and make DEX saves with advantage.
+If your speed drops to zero, you lose these benefits."
+text = "Dodge
+"
+
+[node name="Hide" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+text = "Hide"
+
+[node name="SkillCheck" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+text = "Skill Check"
+
+[node name="Misc" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions"]
+layout_mode = 2
+tooltip_text = "Any other bonus action not here enumerated"
+text = "Misc"
+
+[node name="Reactions" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions"]
+layout_mode = 2
+text = "Reactions:"
+
+[node name="AoO" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions"]
+layout_mode = 2
+tooltip_text = "Attack of Opportunity
+Make one melee attack against a creature you can see right before the creature leaves your reach
+(if you have a reach weapon, they need to move farther)"
+text = "Attack of Op."
+
+[node name="ReadiedAction" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions"]
+layout_mode = 2
+text = "Readied Action"
+
+[node name="Misc" type="Button" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions"]
+layout_mode = 2
+tooltip_text = "Any other reaction not here enumerated.
+
+Some feats allow an actor to take an additional attack.
+(e.g. fighter's parry)"
+text = "Misc"
+
+[node name="ToolScroll" type="ScrollContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReferenceRect" type="ReferenceRect" parent="vb/InfoOptions/ReferenceRect/OptionTray/ToolScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+border_color = Color(0.396889, 0.396889, 0.396889, 1)
+border_width = 4.0
+editor_only = false
+
+[node name="Tools" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ToolScroll/ReferenceRect"]
+layout_mode = 2
+offset_right = 570.0
+offset_bottom = 271.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TurnIndicator" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.396078, 0.396078, 0.572549, 0.337255)
+
+[node name="InsufficientActorsPopup" type="AcceptDialog" parent="."]
+title = "Error!"
+initial_position = 2
+size = Vector2i(250, 200)
+dialog_text = "No actors in encounter!
+
+Please add PCs, NPCs, or Non-Actors before starting the encounter."
+dialog_autowrap = true
+
+[connection signal="pressed" from="vb/TopBar/AddNPC" to="." method="_on_add_npc_pressed"]
+[connection signal="pressed" from="vb/TopBar/AddNonActor" to="." method="_on_add_non_actor_pressed"]
+[connection signal="pressed" from="vb/TopBar/RemoveSelected" to="." method="_on_remove_selected_pressed"]
+[connection signal="pressed" from="vb/ControlButtons/StartContEncounter" to="." method="_on_start_cont_encounter_pressed"]
+[connection signal="pressed" from="vb/ControlButtons/Up" to="vb/InfoOptions/Info/Actors" method="_on_up_pressed"]
+[connection signal="pressed" from="vb/ControlButtons/Down" to="vb/InfoOptions/Info/Actors" method="_on_down_pressed"]

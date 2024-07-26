@@ -1,4 +1,4 @@
-class_name PC_line extends ColorRect
+class_name NPC_line extends ColorRect
 
 var status_template = preload("res://src/UI/main/Summary/status.tscn")
 
@@ -33,14 +33,17 @@ func _on_hp_value_changed(value):
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(0, 0, 0))
 		self.color = default_color
 		bloodied = false # technically not bloodied
+		$Info/b/b2/StatusColor.color = Color(0, 0, 0)
 	elif value <= ($Info/b/b1/c1/HP.max_value/2):
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(1, 0.2, 0.1))
 		self.color = bloodied_color
 		bloodied = true
+		$Info/b/b2/StatusColor.color = Color(1, 0, 0)
 	else:
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(1, 1, 1))
 		self.color = default_color
 		bloodied = false
+		$Info/b/b2/StatusColor.color = Color(1, 1, 1)
 
 func save() -> Dictionary:
 	var statuses = []
@@ -70,6 +73,8 @@ func load_(dict: Dictionary) -> void:
 	$Info/b/b1/c1/HP.value = int(dict["Current HP"])
 	$Info/b/b1/c1/HP.max_value = int(dict["MaxHP"])
 	$Info/b/b1/c1/HP.suffix = "/%s" % dict["MaxHP"]
+	_on_hp_value_changed($Info/b/b1/c1/HP.value)
+	
 	$Info/b/b2/AC.text = dict["AC"]
 	$Info/b/b2/PP.text = dict["Passive Perception"]
 	$Info/b/b2/Initiative.text = int(dict["Initiative"])
@@ -87,23 +92,43 @@ func load_(dict: Dictionary) -> void:
 		
 		$Info/StatusRect/StatusScroll/Statuses.add_child(new_status)
 
-func from_pc_dict(pc_dict: Dictionary) -> void:
-	$Info/b/b1/Name.text = pc_dict["Name"]
-	$Info/b/b1/c1/HP.max_value = int(pc_dict["MaxHP"])
-	$Info/b/b1/c1/HP.suffix = "/%s" % pc_dict["MaxHP"]
-	$Info/b/b2/AC.text = pc_dict["AC"]
-	$Info/b/b2/PP.text = pc_dict["Passive Perception"]
+func from_npc_dict(npc_dict: Dictionary) -> void:
+	$Info/b/b1/Name.text = npc_dict["Name"]
+	$Info/b/b1/c1/HP.value = int(npc_dict["Stats/MaxHP"])
+	$Info/b/b1/c1/HP.max_value = int(npc_dict["Stats/MaxHP"])
+	$Info/b/b1/c1/HP.suffix = "/%s" % npc_dict["Stats/MaxHP"]
+	$Info/b/b2/AC.text = npc_dict["Stats/AC"]
+	$Info/b/b2/PP.text = npc_dict["Stats/PassivePerception"]
 	
-	$Info/b/b2/Speeds/Walk.text = pc_dict["Speed"]["Walking"]
-	$Info/b/b2/Speeds/Climb.text = pc_dict["Speed"]["Climbing"]
-	$Info/b/b2/Speeds/Swim.text = pc_dict["Speed"]["Swimming"]
-	$Info/b/b2/Speeds/Fly.text = pc_dict["Speed"]["Flying"]
+	$Info/b/b2/Speeds/Walk.text = npc_dict["Movement/Walk"]
+	$Info/b/b2/Speeds/Climb.text = npc_dict["Movement/Climb"]
+	$Info/b/b2/Speeds/Swim.text = npc_dict["Movement/Swim"]
+	$Info/b/b2/Speeds/Fly.text = npc_dict["Movement/Fly"]
 	
-	$Info/b/b1/Name.tooltip_text += "STR: %s, DEX: %s, CON: %s\n" % [pc_dict["Saves"]["STR"], pc_dict["Saves"]["DEX"], pc_dict["Saves"]["CON"]]
-	$Info/b/b1/Name.tooltip_text += "INT: %s, WIS: %s, CHA: %s\n" % [pc_dict["Saves"]["INT"], pc_dict["Saves"]["WIS"], pc_dict["Saves"]["CHA"]]
-	$Info/b/b1/Name.tooltip_text += "----------- Spells:\n"
-	for spell in pc_dict["Spells"]:
-		$Info/b/b1/Name.tooltip_text += "%s\n" % spell
+	var tooltip_str: String = \
+	"""
+	STR: {STR}, DEX: {DEX}, CON: {CON}
+	INT: {INT}, WIS: {WIS}, CHA: {CHA}
+	----------- Spells:
+	{spells}
+	""".format(
+		{
+			"STR": npc_dict["Saves/STR"],
+			"DEX": npc_dict["Saves/DEX"],
+			"CON": npc_dict["Saves/CON"],
+			"INT": npc_dict["Saves/INT"],
+			"WIS": npc_dict["Saves/WIS"],
+			"CHA": npc_dict["Saves/CHA"],
+			"spells": "\n".join(npc_dict["Spells/InSpellbook"])
+		}
+	)
+	$Info/b/b1/Name.tooltip_text = tooltip_str
+	
+	#$Info/b/b1/Name.tooltip_text += "STR: %s, DEX: %s, CON: %s\n" % [npc_dict["Saves"]["STR"], npc_dict["Saves"]["DEX"], npc_dict["Saves"]["CON"]]
+	#$Info/b/b1/Name.tooltip_text += "INT: %s, WIS: %s, CHA: %s\n" % [npc_dict["Saves"]["INT"], npc_dict["Saves"]["WIS"], npc_dict["Saves"]["CHA"]]
+	#$Info/b/b1/Name.tooltip_text += "----------- Spells:\n"
+	#for spell in npc_dict["Spells/InSpellbook"]:
+		#$Info/b/b1/Name.tooltip_text += "%s\n" % spell
 
 
 func _on_initiative_text_changed(new_text: String):
