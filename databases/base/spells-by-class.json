@@ -451,7 +451,7 @@
       "5th Level": [
          "Banishing Smite",
          "Circle of Power",
-         "Destructive Smite",
+         "Destructive Wave",
          "Dispel Evil and Good",
          "Geas",
          "Raise Dead"
@@ -471,7 +471,7 @@
          "Detect Poison and Disease",
          "Fog Cloud",
          "Goodberry",
-         "Hall of Thorns",
+         "Hail of Thorns",
          "Hunter's Mark",
          "Jump",
          "Longstrider",
@@ -985,8 +985,7 @@
          "Mind Blank",
          "Power Word Stun",
          "Sunburst",
-         "Telepathy",
-         "Trap the Soul"
+         "Telepathy"
       ],
       "9th Level": [
          "Astral Projection",

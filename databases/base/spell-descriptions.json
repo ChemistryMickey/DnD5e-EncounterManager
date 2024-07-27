@@ -629,6 +629,16 @@
       "Range": "60 feet",
       "School": "Conjuration"
    },
+   "Conjure Barrage": {
+      "Casting Time": "1 action",
+      "Components": "V, S, M (one piece of ammunition or a thrown weapon)",
+      "Description": "You throw a nonmagical weapon or fire a piece of nonmagical ammunition into the air to create a cone of identical weapons that shoot forward and then disappear. Each creature in a 60-foot cone must succeed on a Dexterity saving throw. A creature takes 3d8 damage on a failed save, or half as much damage on a successful one. The damage type is the same as that of the weapon or ammunition used as a component.",
+      "Duration": "Instantaneous",
+      "Is Ritual?": false,
+      "Level": "3rd Level",
+      "Range": "Self (60-foot cone)",
+      "School": "Conjuration"
+   },
    "Conjure Celestial": {
       "Casting Time": "1 minute",
       "Components": "V, S",
@@ -908,6 +918,16 @@
       "Level": "8th Level",
       "Range": "60 feet",
       "School": "Conjuration"
+   },
+   "Destructive Wave": {
+      "Casting Time": "1 action",
+      "Components": "V",
+      "Description": "You strike the ground, creating a burst of divine energy that ripples outward from you. Each creature you choose within 30 feet of you must succeed on a Constitution saving throw or take 5d6 thunder damage, as well as 5d6 radiant or necrotic damage (your choice), and be knocked prone. A creature that succeeds on its saving throw takes half as much damage and isn’t knocked prone.",
+      "Duration": "Instantaneous",
+      "Is Ritual?": false,
+      "Level": "5th Level",
+      "Range": "Self (30-foot radius)",
+      "School": "Evocation"
    },
    "Detect Evil and Good": {
       "Casting Time": "1 action",
@@ -1669,7 +1689,7 @@
       "Range": "Self (60-foot line)",
       "School": "Evocation"
    },
-   "Hail of Throns": {
+   "Hail of Thorns": {
       "Casting Time": "1 bonus action",
       "Components": "V",
       "Description": "The next time you hit a creature with a ranged weapon attack before the spell ends, this spell creates a rain of throns that sprouts from your ranged weapon or ammunition. In addition to the normal effect of the attack, the target of the attack and each creature within 5 feet of it must make a DEX saving throw. A creature takes 1d10 piercing damage on a failed save, or half as much damage on a successful one.\nAt Higher Levels: If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st (to a maximum of 6d10).",
