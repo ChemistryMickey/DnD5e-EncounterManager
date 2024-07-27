@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuxlwfqro78in"]
+[gd_scene load_steps=3 format=3 uid="uid://cuxlwfqro78in"]
 
 [ext_resource type="Script" path="res://src/UI/main/Summary/PC-line.gd" id="1_5e4sy"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/AddStatusEffectPopup.gd" id="2_xxicx"]
 
 [node name="PC" type="ColorRect"]
 custom_minimum_size = Vector2(0, 72)
@@ -43,6 +44,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 placeholder_text = "Name"
+editable = false
 expand_to_text_length = true
 
 [node name="Actions" type="HBoxContainer" parent="Info/b/b1"]
@@ -80,7 +82,7 @@ text = "I.I."
 layout_mode = 2
 
 [node name="HP" type="SpinBox" parent="Info/b/b1/c1"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.3
@@ -88,18 +90,22 @@ tooltip_text = "HP"
 allow_greater = true
 allow_lesser = true
 alignment = 1
+prefix = "HP: "
 suffix = "/100"
 
 [node name="b2" type="HBoxContainer" parent="Info/b"]
 layout_mode = 2
-size_flags_horizontal = 0
 
-[node name="Initiative" type="LineEdit" parent="Info/b/b2"]
+[node name="Initiative" type="SpinBox" parent="Info/b/b2"]
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Initiative"
-placeholder_text = "Init."
 alignment = 1
+prefix = "Init: "
+
+[node name="Control" type="Control" parent="Info/b/b2"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="AC" type="LineEdit" parent="Info/b/b2"]
 layout_mode = 2
@@ -146,28 +152,29 @@ tooltip_text = "Fly Speed"
 placeholder_text = "Fly"
 alignment = 1
 
+[node name="AddStatus" type="Button" parent="Info/b/b2"]
+layout_mode = 2
+tooltip_text = "Add status effect"
+text = "+"
+
 [node name="VSeparator" type="VSeparator" parent="Info"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="StatusRect" type="ReferenceRect" parent="Info"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 border_color = Color(0.427493, 0.427493, 0.427493, 1)
 border_width = 3.0
 editor_only = false
 
 [node name="StatusScroll" type="ScrollContainer" parent="Info/StatusRect"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -176.5
-offset_top = -33.0
-offset_right = 176.5
-offset_bottom = 33.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -178,6 +185,74 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
+[node name="AddStatusEffectPopup" type="Window" parent="."]
+title = "Add Status Effect"
+initial_position = 2
+size = Vector2i(500, 150)
+visible = false
+script = ExtResource("2_xxicx")
+
+[node name="vb" type="VBoxContainer" parent="AddStatusEffectPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Control" type="Control" parent="AddStatusEffectPopup/vb"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatusInfo" type="HBoxContainer" parent="AddStatusEffectPopup/vb"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="StatusName" type="LineEdit" parent="AddStatusEffectPopup/vb/StatusInfo"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Status"
+alignment = 1
+
+[node name="AutoUpdate" type="CheckButton" parent="AddStatusEffectPopup/vb/StatusInfo"]
+layout_mode = 2
+tooltip_text = "Update at end of the turn of the afflicted actor.
+
+More complex update rules must be handled manually.
+
+(-1 turns will be treated as an indefinite status)"
+text = "Auto Update?"
+
+[node name="Turns" type="SpinBox" parent="AddStatusEffectPopup/vb/StatusInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+value = -1.0
+alignment = 1
+prefix = "Turns: "
+
+[node name="Control2" type="Control" parent="AddStatusEffectPopup/vb"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="AddStatusEffectPopup/vb"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Cancel" type="Button" parent="AddStatusEffectPopup/vb/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="AddStatusFromPopup" type="Button" parent="AddStatusEffectPopup/vb/Buttons"]
+layout_mode = 2
+text = "Add Status"
+
 [connection signal="toggled" from="Info/Selected" to="." method="_on_selected_toggled"]
 [connection signal="value_changed" from="Info/b/b1/c1/HP" to="." method="_on_hp_value_changed"]
-[connection signal="text_changed" from="Info/b/b2/Initiative" to="." method="_on_initiative_text_changed"]
+[connection signal="value_changed" from="Info/b/b2/Initiative" to="." method="_on_initiative_value_changed"]
+[connection signal="pressed" from="Info/b/b2/AddStatus" to="." method="_on_add_status_pressed"]
+[connection signal="close_requested" from="AddStatusEffectPopup" to="." method="_on_add_status_effect_popup_close_requested"]
+[connection signal="pressed" from="AddStatusEffectPopup/vb/Buttons/Cancel" to="AddStatusEffectPopup" method="_on_cancel_pressed"]
+[connection signal="pressed" from="AddStatusEffectPopup/vb/Buttons/AddStatusFromPopup" to="." method="_on_add_status_from_popup_pressed"]

@@ -18,10 +18,10 @@ grow_vertical = 2
 [node name="NPC_list" type="ItemList" parent="vb"]
 layout_mode = 2
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="hb" type="HBoxContainer" parent="vb"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Cancel" type="Button" parent="vb/hb"]
@@ -30,7 +30,23 @@ text = "Cancel"
 
 [node name="Add" type="Button" parent="vb/hb"]
 layout_mode = 2
-text = "Add Selected to Initative"
+text = "Add to Initative"
+
+[node name="Control" type="Control" parent="vb/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="NumToAdd" type="SpinBox" parent="vb/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Number of NPCs to add.
+If multiple NPCs are selected and this number is >1,
+that cluster will be added <this number> times."
+min_value = 1.0
+value = 1.0
+alignment = 1
+prefix = "# to add: "
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="vb/hb/Cancel" to="." method="_on_cancel_pressed"]

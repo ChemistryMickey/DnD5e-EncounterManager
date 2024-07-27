@@ -64,6 +64,9 @@ func recursive_clear_spinbox(children: Array[Node]) -> void:
 		
 		if child is SpinBox:
 			child.set_value_no_signal(0)
+			child.max_value = 100
+			child.prefix = ""
+			child.suffix = ""
 
 func recursive_dict_merge(dict1: Dictionary, dict2: Dictionary) -> Dictionary:
 	var merged_dict = {}
@@ -106,6 +109,19 @@ func recursive_construct_savable_child_dict(children: Array[Node], mutable_dict:
 			mutable_dict[full_name] = child.toggle_mode
 			#print("I'm a check button! %s" % full_name)
 	return
+
+func replace_every_nth_chr(str_in: String, char_to_replace: String, replace_with: String, n: int) -> String:
+	var new_str = str_in
+	var counter = 0
+	var i = 0
+	for chr in new_str:
+		if chr == char_to_replace:
+			counter += 1
+		if counter == n:
+			new_str[i] = replace_with
+			counter = 0
+		i += 1
+	return new_str
 
 func strip_bbcode_tags(str_in: String) -> String:
 	var regex = RegEx.new()

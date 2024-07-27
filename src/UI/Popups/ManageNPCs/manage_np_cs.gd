@@ -13,6 +13,7 @@ func _populate_NPCs():
 
 func _on_close_requested():
 	$a/b/c2/npc_info.clear()
+	self.move_to_center()
 	self.visible = false
 
 

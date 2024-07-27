@@ -27,10 +27,10 @@ expand_to_text_length = true
 [node name="RemainingTurns" type="SpinBox" parent="."]
 layout_mode = 2
 tooltip_text = "Turns Remaining"
+min_value = -1.0
 alignment = 1
-suffix = "/P"
 
-[node name="Control" type="Control" parent="."]
+[node name="Control4" type="Control" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 

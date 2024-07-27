@@ -65,6 +65,10 @@ func save() -> Dictionary:
 	for ind in range($b/Spells/InSpellbook.item_count):
 		spells.append($b/Spells/InSpellbook.get_item_text(ind))
 	mutable_dict["Spells/InSpellbook"] = spells
+	
+	# Specifically handle max values for spell slots
+	for i in range(1, 10):
+		mutable_dict["SpellSlots/%d" % i]["max value"] = get_node("b/SpellSlots/%d" % i).value
 
 	if mutable_dict["Name"] == "":
 		return {}

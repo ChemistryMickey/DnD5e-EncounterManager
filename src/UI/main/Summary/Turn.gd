@@ -14,3 +14,4 @@ func _increment_max():
 
 func _update_suffix():
 	self.suffix = "/%d" % self.max_value
+

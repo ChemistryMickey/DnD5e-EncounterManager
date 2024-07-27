@@ -11,6 +11,7 @@ func _reveal():
 
 func _on_close_requested():
 	_clear_fields()
+	self.move_to_center()
 	self.visible = false
 
 func _on_cancel_pressed():

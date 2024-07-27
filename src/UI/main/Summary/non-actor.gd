@@ -6,13 +6,14 @@ class_name NonActor extends ColorRect
 func save() -> Dictionary:
 	return {
 		"Type": "NonActor",
-		"Initiative": $Info/b/Initiative.text,
+		"Initiative": $Info/b/Initiative.value,
 		"Description": $Info/b/Description.text
 	}
 
 func load_(dict: Dictionary) -> void:
-	$Info/b/Initiative.text = dict["Initiative"]
+	$Info/b/Initiative.value = dict["Initiative"]
 	$Info/b/Description.text = dict["Description"]
+	initiative = dict["Initiative"]
 
 func _on_selected_toggled(toggled_on):
 	selected = toggled_on
@@ -21,8 +22,5 @@ func _on_selected_toggled(toggled_on):
 	else:
 		self.color.a = 0
 
-
-func _on_initiative_text_changed(new_text: String):
-	if !new_text.is_valid_int():
-		return
-	initiative = int(new_text)
+func _on_initiative_value_changed(value):
+	initiative = value

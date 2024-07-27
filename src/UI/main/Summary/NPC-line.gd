@@ -5,17 +5,42 @@ var status_template = preload("res://src/UI/main/Summary/status.tscn")
 @export var bloodied: bool = false
 @export var selected: bool = false
 @export var initiative: int = 0
+@export var actor_name: String = ""
+@export var spell_slots: Dictionary = {}
 
 var default_color = Color(1, 1, 1, 0)
 var bloodied_color = Color(1, 0.5, 0.5, 0)
 
 func _ready():
 	self.color = default_color
-
+	
 func reset_action_economy():
 	for button in $Info/b/b1/Actions.get_children():
 		if button is CheckButton:
-			button.toggle_mode = false
+			button.button_pressed = false
+
+func decrement_statuses():
+	for status in $Info/StatusRect/StatusScroll/Statuses.get_children():
+		if status.auto_update:
+			status.decrement()
+
+func trip_action() -> bool:
+	if $Info/b/b1/Actions/Action.button_pressed:
+		return false
+	$Info/b/b1/Actions/Action.button_pressed = true
+	return true
+
+func trip_bonus_action() -> bool:
+	if $Info/b/b1/Actions/Bonus.button_pressed:
+		return false
+	$Info/b/b1/Actions/Bonus.button_pressed = true
+	return true
+	
+func trip_reaction() -> bool:
+	if $Info/b/b1/Actions/Reaction.button_pressed:
+		return false
+	$Info/b/b1/Actions/Reaction.button_pressed = true
+	return true
 
 func _on_selected_toggled(toggled_on):
 	selected = toggled_on
@@ -51,9 +76,9 @@ func save() -> Dictionary:
 		statuses.append(status.save())
 		
 	return {
-		"Type": "PC_line",
+		"Type": "NPC_line",
 		"Name": $Info/b/b1/Name.text,
-		"Initiative": $Info/b/b2/Initiative.text,
+		"Initiative": $Info/b/b2/Initiative.value,
 		"Current HP": $Info/b/b1/c1/HP.value,
 		"MaxHP": $Info/b/b1/c1/HP.max_value,
 		"AC": $Info/b/b2/AC.text,
@@ -64,8 +89,8 @@ func save() -> Dictionary:
 			"Swimming": $Info/b/b2/Speeds/Swim.text,
 			"Flying": $Info/b/b2/Speeds/Fly.text
 		},
-		"Tooltip": $Info/b/b1/Name.tooltip_text,
-		"Status Effects": statuses
+		"Status Effects": statuses,
+		"Spell Slots": spell_slots
 	}
 	
 func load_(dict: Dictionary) -> void:
@@ -77,20 +102,22 @@ func load_(dict: Dictionary) -> void:
 	
 	$Info/b/b2/AC.text = dict["AC"]
 	$Info/b/b2/PP.text = dict["Passive Perception"]
-	$Info/b/b2/Initiative.text = int(dict["Initiative"])
+	$Info/b/b2/Initiative.value = dict["Initiative"]
 	
 	$Info/b/b2/Speeds/Walk.text = dict["Speed"]["Walking"]
 	$Info/b/b2/Speeds/Climb.text = dict["Speed"]["Climbing"]
 	$Info/b/b2/Speeds/Swim.text = dict["Speed"]["Swimming"]
 	$Info/b/b2/Speeds/Fly.text = dict["Speed"]["Flying"]
 	
-	$Info/b/b1/Name.tooltip_text = dict["Tooltip"]
-	
 	for status in dict["Status Effects"]:
 		var new_status = status_template.instantiate()
 		new_status.load_(status)
 		
 		$Info/StatusRect/StatusScroll/Statuses.add_child(new_status)
+		
+	actor_name = $Info/b/b1/Name.text
+	spell_slots = dict["Spell Slots"]
+	initiative = dict["Initiative"]
 
 func from_npc_dict(npc_dict: Dictionary) -> void:
 	$Info/b/b1/Name.text = npc_dict["Name"]
@@ -105,33 +132,36 @@ func from_npc_dict(npc_dict: Dictionary) -> void:
 	$Info/b/b2/Speeds/Swim.text = npc_dict["Movement/Swim"]
 	$Info/b/b2/Speeds/Fly.text = npc_dict["Movement/Fly"]
 	
-	var tooltip_str: String = \
-	"""
-	STR: {STR}, DEX: {DEX}, CON: {CON}
-	INT: {INT}, WIS: {WIS}, CHA: {CHA}
-	----------- Spells:
-	{spells}
-	""".format(
-		{
-			"STR": npc_dict["Saves/STR"],
-			"DEX": npc_dict["Saves/DEX"],
-			"CON": npc_dict["Saves/CON"],
-			"INT": npc_dict["Saves/INT"],
-			"WIS": npc_dict["Saves/WIS"],
-			"CHA": npc_dict["Saves/CHA"],
-			"spells": "\n".join(npc_dict["Spells/InSpellbook"])
+	actor_name = npc_dict["Name"]
+	var spells_str = ", ".join(npc_dict["Spells/InSpellbook"])
+	spells_str = Utilities.replace_every_nth_chr(spells_str, ",", "\n", 4)
+	for i in range(1, 10):
+		spell_slots["%d" % i] = {
+			"value": npc_dict["SpellSlots/%d" % i]["value"],
+			"max value": npc_dict["SpellSlots/%d" % i]["max value"]
 		}
-	)
-	$Info/b/b1/Name.tooltip_text = tooltip_str
-	
-	#$Info/b/b1/Name.tooltip_text += "STR: %s, DEX: %s, CON: %s\n" % [npc_dict["Saves"]["STR"], npc_dict["Saves"]["DEX"], npc_dict["Saves"]["CON"]]
-	#$Info/b/b1/Name.tooltip_text += "INT: %s, WIS: %s, CHA: %s\n" % [npc_dict["Saves"]["INT"], npc_dict["Saves"]["WIS"], npc_dict["Saves"]["CHA"]]
-	#$Info/b/b1/Name.tooltip_text += "----------- Spells:\n"
-	#for spell in npc_dict["Spells/InSpellbook"]:
-		#$Info/b/b1/Name.tooltip_text += "%s\n" % spell
 
 
 func _on_initiative_text_changed(new_text: String):
 	if !new_text.is_valid_int():
+		initiative = 0
 		return
 	initiative = int(new_text)
+
+func _on_add_status_pressed():
+	$AddStatusEffectPopup.visible = true
+
+func _on_add_status_effect_popup_close_requested():
+	$AddStatusEffectPopup.visible = false
+	$AddStatusEffectPopup.move_to_center()
+
+func _on_add_status_from_popup_pressed():
+	var new_status = status_template.instantiate()
+	new_status.set_properties(
+		$AddStatusEffectPopup/vb/StatusInfo/StatusName.text, 
+		$AddStatusEffectPopup/vb/StatusInfo/Turns.value,
+		$AddStatusEffectPopup/vb/StatusInfo/AutoUpdate.button_pressed
+	)
+	$Info/StatusRect/StatusScroll/Statuses.add_child(new_status)
+	$AddStatusEffectPopup.clear()
+	_on_add_status_effect_popup_close_requested()

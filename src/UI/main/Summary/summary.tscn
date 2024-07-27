@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjdpdv5kuk7a1"]
+[gd_scene load_steps=7 format=3 uid="uid://bjdpdv5kuk7a1"]
 
 [ext_resource type="Script" path="res://src/UI/main/Summary/summary.gd" id="1_e05e4"]
 [ext_resource type="Script" path="res://src/UI/main/Summary/Turn.gd" id="2_6uov0"]
 [ext_resource type="Script" path="res://src/UI/main/Summary/Actors.gd" id="2_kgvjd"]
+[ext_resource type="Script" path="res://src/UI/main/Summary/NPCSummary.gd" id="4_1ss8d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xi32"]
 bg_color = Color(0.243137, 0.552941, 0, 1)
 
-[node name="Summary" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c36g"]
+bg_color = Color(0.69246, 1.92523e-06, 2.88785e-07, 1)
+
+[node name="Summary" type="Control" groups=["Persist"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,20 +64,13 @@ layout_mode = 2
 text = "Options"
 flat = false
 switch_on_hover = true
-item_count = 6
-popup/item_0/text = "Toggle Dice Roller"
-popup/item_0/id = 0
-popup/item_1/text = "Toggle Utilities Tray"
-popup/item_1/id = 1
-popup/item_2/text = ""
-popup/item_2/id = 2
-popup/item_2/separator = true
-popup/item_3/text = "Show Scratch Popup        (Ctrl + T)"
-popup/item_3/id = 3
-popup/item_4/text = "Show Spellbook Popup    (Ctrl + P)"
-popup/item_4/id = 4
-popup/item_5/text = "Show Help"
-popup/item_5/id = 5
+item_count = 3
+popup/item_0/text = "Show Scratch Popup        (Ctrl + T)"
+popup/item_0/id = 3
+popup/item_1/text = "Show Spellbook Popup    (Ctrl + P)"
+popup/item_1/id = 4
+popup/item_2/text = "Show Help"
+popup/item_2/id = 5
 
 [node name="Control" type="Control" parent="vb/TopBar"]
 layout_mode = 2
@@ -139,13 +136,21 @@ layout_mode = 2
 tooltip_text = "Move first selected actor down in initiative order"
 text = "↓"
 
+[node name="AddBulkStatusEffects" type="Button" parent="vb/ControlButtons"]
+visible = false
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+tooltip_text = "Add a status effect to the selected characters"
+theme_override_styles/normal = SubResource("StyleBoxFlat_3c36g")
+text = "+ Status Effect"
+
 [node name="Spacer" type="Control" parent="vb/ControlButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Round" type="SpinBox" parent="vb/ControlButtons"]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 max_value = 1000.0
 rounded = true
@@ -153,7 +158,7 @@ alignment = 1
 prefix = "Round #: "
 
 [node name="Turn" type="SpinBox" parent="vb/ControlButtons"]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 tooltip_text = "Sets the position of the turn indicator highlight bar.
 
@@ -179,7 +184,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Actors" type="VBoxContainer" parent="vb/InfoOptions/Info" groups=["Persist"]]
+[node name="Actors" type="VBoxContainer" parent="vb/InfoOptions/Info"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -227,7 +232,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Attack"
 
-[node name="SpinBox" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb"]
+[node name="NumAttacks" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb"]
 layout_mode = 2
 value = 1.0
 alignment = 2
@@ -366,24 +371,260 @@ Some feats allow an actor to take an additional attack.
 (e.g. fighter's parry)"
 text = "Misc"
 
-[node name="ToolScroll" type="ScrollContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray"]
+[node name="ReferenceRect" type="ReferenceRect" parent="vb/InfoOptions/ReferenceRect/OptionTray"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="ReferenceRect" type="ReferenceRect" parent="vb/InfoOptions/ReferenceRect/OptionTray/ToolScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 border_color = Color(0.396889, 0.396889, 0.396889, 1)
 border_width = 4.0
 editor_only = false
 
-[node name="Tools" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ToolScroll/ReferenceRect"]
+[node name="NPCScroll" type="ScrollContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="NPCSummary" type="VBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll"]
 layout_mode = 2
-offset_right = 570.0
-offset_bottom = 271.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("4_1ss8d")
+
+[node name="Label" type="Label" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+text = "NPC Info:"
+
+[node name="Name" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+placeholder_text = "Name"
+alignment = 1
+editable = false
+
+[node name="Resistances" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+placeholder_text = "Resistances"
+editable = false
+
+[node name="Immunities" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+placeholder_text = "Immunities"
+editable = false
+
+[node name="Stats" type="HBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+tooltip_text = "Stat Modifiers"
+
+[node name="STR" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "STR"
+alignment = 1
+editable = false
+
+[node name="DEX" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "DEX"
+alignment = 1
+editable = false
+
+[node name="CON" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "CON"
+alignment = 1
+editable = false
+
+[node name="INT" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "INT"
+alignment = 1
+editable = false
+
+[node name="WIS" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "WIS"
+alignment = 1
+editable = false
+
+[node name="CHA" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stat Modifiers"
+placeholder_text = "CHA"
+alignment = 1
+editable = false
+
+[node name="SaveThrows" type="HBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+tooltip_text = "Saving Throws"
+
+[node name="STR" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "STR"
+alignment = 1
+editable = false
+
+[node name="DEX" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "DEX"
+alignment = 1
+editable = false
+
+[node name="CON" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "CON"
+alignment = 1
+editable = false
+
+[node name="INT" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "INT"
+alignment = 1
+editable = false
+
+[node name="WIS" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "WIS"
+alignment = 1
+editable = false
+
+[node name="CHA" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SaveThrows"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Additional Saving Throw Bonuses"
+placeholder_text = "CHA"
+alignment = 1
+editable = false
+
+[node name="SpellSlots" type="GridContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+columns = 3
+
+[node name="1" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "1st: "
+
+[node name="2" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "2nd: "
+
+[node name="3" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "3rd: "
+
+[node name="4" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "4th: "
+
+[node name="5" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "5th: "
+
+[node name="6" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "6th: "
+
+[node name="7" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "7th: "
+
+[node name="8" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "8th: "
+
+[node name="9" type="SpinBox" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/SpellSlots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+prefix = "9th: "
+
+[node name="Spells" type="ItemList" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="Senses" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+placeholder_text = "Senses"
+editable = false
+
+[node name="Languages" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+placeholder_text = "Languages"
+editable = false
+
+[node name="Actions" type="TextEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "Actions"
+editable = false
+
+[node name="LegPerRound" type="HBoxContainer" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/LegPerRound"]
+layout_mode = 2
+text = "# Legendary Actions/Round: "
+
+[node name="LActionsPerRound" type="LineEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary/LegPerRound"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+editable = false
+
+[node name="LegActions" type="TextEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "Legendary Actions"
+editable = false
+
+[node name="Reactions" type="TextEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "Reactions"
+editable = false
+
+[node name="Misc" type="TextEdit" parent="vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "Misc"
+editable = false
 
 [node name="TurnIndicator" type="ColorRect" parent="."]
 visible = false
@@ -407,9 +648,38 @@ dialog_text = "No actors in encounter!
 Please add PCs, NPCs, or Non-Actors before starting the encounter."
 dialog_autowrap = true
 
+[node name="AddBulkStatusEffectsPopup" type="Window" parent="."]
+title = "Add Bulk Status Effects"
+initial_position = 2
+size = Vector2i(400, 300)
+visible = false
+
 [connection signal="pressed" from="vb/TopBar/AddNPC" to="." method="_on_add_npc_pressed"]
 [connection signal="pressed" from="vb/TopBar/AddNonActor" to="." method="_on_add_non_actor_pressed"]
 [connection signal="pressed" from="vb/TopBar/RemoveSelected" to="." method="_on_remove_selected_pressed"]
 [connection signal="pressed" from="vb/ControlButtons/StartContEncounter" to="." method="_on_start_cont_encounter_pressed"]
 [connection signal="pressed" from="vb/ControlButtons/Up" to="vb/InfoOptions/Info/Actors" method="_on_up_pressed"]
 [connection signal="pressed" from="vb/ControlButtons/Down" to="vb/InfoOptions/Info/Actors" method="_on_down_pressed"]
+[connection signal="pressed" from="vb/ControlButtons/AddBulkStatusEffects" to="." method="_on_add_status_effect_pressed"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/CastSpell" to="." method="_on_action_cast_spell_pressed"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Dash" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Disengage" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Dodge" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Help" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Hide" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Ready" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Search" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/UseObject" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/Misc" to="." method="_trip_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/CastSpell" to="." method="_on_bonus_action_cast_spell_pressed"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/Dash" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/Disengage" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/Dodge" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/Hide" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/SkillCheck" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/BonusActions/Misc" to="." method="_trip_bonus_action"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions/AoO" to="." method="_trip_reaction"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions/ReadiedAction" to="." method="_trip_reaction"]
+[connection signal="pressed" from="vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Reactions/Misc" to="." method="_trip_reaction"]
+[connection signal="close_requested" from="AddBulkStatusEffectsPopup" to="." method="_on_add_status_effect_popup_close_requested"]

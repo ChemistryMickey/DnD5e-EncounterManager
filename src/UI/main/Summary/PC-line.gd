@@ -5,17 +5,42 @@ var status_template = preload("res://src/UI/main/Summary/status.tscn")
 @export var bloodied: bool = false
 @export var selected: bool = false
 @export var initiative: int = 0
+@export var actor_name: String = ""
 
 var default_color = Color(1, 1, 1, 0)
 var bloodied_color = Color(1, 0.5, 0.5, 0)
 
 func _ready():
 	self.color = default_color
+	actor_name = $Info/b/b1/Name.text
+
+func decrement_statuses():
+	for status in $Info/StatusRect/StatusScroll/Statuses.get_children():
+		if status.auto_update:
+			status.decrement()
 
 func reset_action_economy():
 	for button in $Info/b/b1/Actions.get_children():
 		if button is CheckButton:
-			button.toggle_mode = false
+			button.button_pressed = false
+
+func trip_action():
+	if $Info/b/b1/Actions/Action.button_pressed:
+		return false
+	$Info/b/b1/Actions/Action.button_pressed = true
+	return true
+
+func trip_bonus_action():
+	if $Info/b/b1/Actions/Bonus.button_pressed:
+		return false
+	$Info/b/b1/Actions/Bonus.button_pressed = true
+	return true
+	
+func trip_reaction():
+	if $Info/b/b1/Actions/Reaction.button_pressed:
+		return false
+	$Info/b/b1/Actions/Reaction.button_pressed = true
+	return true
 
 func _on_selected_toggled(toggled_on):
 	selected = toggled_on
@@ -50,7 +75,7 @@ func save() -> Dictionary:
 	return {
 		"Type": "PC_line",
 		"Name": $Info/b/b1/Name.text,
-		"Initiative": $Info/b/b2/Initiative.text,
+		"Initiative": $Info/b/b2/Initiative.value,
 		"Current HP": $Info/b/b1/c1/HP.value,
 		"MaxHP": $Info/b/b1/c1/HP.max_value,
 		"AC": $Info/b/b2/AC.text,
@@ -72,7 +97,7 @@ func load_(dict: Dictionary) -> void:
 	$Info/b/b1/c1/HP.suffix = "/%s" % dict["MaxHP"]
 	$Info/b/b2/AC.text = dict["AC"]
 	$Info/b/b2/PP.text = dict["Passive Perception"]
-	$Info/b/b2/Initiative.text = int(dict["Initiative"])
+	$Info/b/b2/Initiative.value = dict["Initiative"]
 	
 	$Info/b/b2/Speeds/Walk.text = dict["Speed"]["Walking"]
 	$Info/b/b2/Speeds/Climb.text = dict["Speed"]["Climbing"]
@@ -86,6 +111,9 @@ func load_(dict: Dictionary) -> void:
 		new_status.load_(status)
 		
 		$Info/StatusRect/StatusScroll/Statuses.add_child(new_status)
+		
+	actor_name = $Info/b/b1/Name.text
+	initiative = dict["Initiative"]
 
 func from_pc_dict(pc_dict: Dictionary) -> void:
 	$Info/b/b1/Name.text = pc_dict["Name"]
@@ -99,14 +127,44 @@ func from_pc_dict(pc_dict: Dictionary) -> void:
 	$Info/b/b2/Speeds/Swim.text = pc_dict["Speed"]["Swimming"]
 	$Info/b/b2/Speeds/Fly.text = pc_dict["Speed"]["Flying"]
 	
-	$Info/b/b1/Name.tooltip_text += "STR: %s, DEX: %s, CON: %s\n" % [pc_dict["Saves"]["STR"], pc_dict["Saves"]["DEX"], pc_dict["Saves"]["CON"]]
-	$Info/b/b1/Name.tooltip_text += "INT: %s, WIS: %s, CHA: %s\n" % [pc_dict["Saves"]["INT"], pc_dict["Saves"]["WIS"], pc_dict["Saves"]["CHA"]]
-	$Info/b/b1/Name.tooltip_text += "----------- Spells:\n"
-	for spell in pc_dict["Spells"]:
-		$Info/b/b1/Name.tooltip_text += "%s\n" % spell
+	var spells_str = ", ".join(pc_dict["Spells"])
+	spells_str = Utilities.replace_every_nth_chr(spells_str, ",", "\n", 4)
+	var tooltip_str: String = \
+	"""
+	STR: {STR}, DEX: {DEX}, CON: {CON}
+	INT: {INT}, WIS: {WIS}, CHA: {CHA}
+	----------- Spells:
+	{spells}
+	""".format(
+		{
+			"STR": pc_dict["Saves"]["STR"],
+			"DEX": pc_dict["Saves"]["DEX"],
+			"CON": pc_dict["Saves"]["CON"],
+			"INT": pc_dict["Saves"]["INT"],
+			"WIS": pc_dict["Saves"]["WIS"],
+			"CHA": pc_dict["Saves"]["CHA"],
+			"spells": spells_str
+		}
+	)
+	$Info/b/b1/Name.tooltip_text = tooltip_str
 
+func _on_initiative_value_changed(value):
+	initiative = value
+	
+func _on_add_status_effect_popup_close_requested():
+	$AddStatusEffectPopup.visible = false
+	$AddStatusEffectPopup.move_to_center()
 
-func _on_initiative_text_changed(new_text: String):
-	if !new_text.is_valid_int():
-		return
-	initiative = int(new_text)
+func _on_add_status_from_popup_pressed():
+	var new_status = status_template.instantiate()
+	new_status.set_properties(
+		$AddStatusEffectPopup/vb/StatusInfo/StatusName.text, 
+		$AddStatusEffectPopup/vb/StatusInfo/Turns.value,
+		$AddStatusEffectPopup/vb/StatusInfo/AutoUpdate.button_pressed
+	)
+	$Info/StatusRect/StatusScroll/Statuses.add_child(new_status)
+	$AddStatusEffectPopup.clear()
+	_on_add_status_effect_popup_close_requested()
+
+func _on_add_status_pressed():
+	$AddStatusEffectPopup.visible = true

@@ -6,6 +6,7 @@ func _ready():
 
 func _on_close_requested():
 	$a/npc_info.clear()
+	self.move_to_center()
 	self.visible = false
 
 func _on_save_pressed():

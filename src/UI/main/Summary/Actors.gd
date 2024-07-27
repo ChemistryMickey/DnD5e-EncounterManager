@@ -4,8 +4,6 @@ extends VBoxContainer
 @onready var non_actor_template = preload("res://src/UI/main/Summary/non-actor.tscn")
 @onready var npc_template = preload("res://src/UI/main/Summary/NPC-line.tscn")
 
-var cur_init_ind = 0
-
 func _ready():
 	if Signals.connect("add_NPC_to_initiative", _add_npc_to_initiative): print("Unable to connect to add_NPC_to_initiative!")
 	Signals.connect("next_turn", _reset_action_economy)
@@ -14,7 +12,7 @@ func _reset_action_economy(ind: int):
 	if ind >= self.get_child_count():
 		print("How did you get here? Requested ind: %d, N_children: %d" % [ind, self.get_child_count()])
 		return
-		
+	
 	var selected_actor = self.get_children()[ind]
 	if selected_actor is PC_line or selected_actor is NPC_line:
 		selected_actor.reset_action_economy()
@@ -26,26 +24,30 @@ func _add_npc_to_initiative(npc_name: String):
 	
 	self.add_child(new_npc)
 
-func save() -> Dictionary:
+func save() -> Array:
 	var actors = []
 	for child in self.get_children():
-		if child is PC_line or child is NonActor:
+		if child is PC_line or child is NonActor or child is NPC_line:
 			actors.append(child.save())
-	return {
-		"Current Initiative Index": cur_init_ind,
-		"Current Initiative Order": actors
-	}
+	return actors
 	
 func load_sheet(dict: Dictionary) -> void:
+	for child in self.get_children():
+		child.queue_free()
+		Signals.emit_signal("remove_actor_from_initiative")
+		
 	for entry in dict["Current Initiative Order"]:
 		var new_line
 		if entry["Type"] == "PC_line":
 			new_line = pc_template.instantiate()
 		elif entry["Type"] == "NonActor":
 			new_line = non_actor_template.instantiate()
+		elif entry["Type"] == "NPC_line":
+			new_line = npc_template.instantiate()
 		new_line.load_(entry)
 		
 		self.add_child(new_line)
+		Signals.emit_signal("add_new_actor_to_initiative")
 
 func _get_ind_to_move() -> int:
 	var ind_to_move = 0

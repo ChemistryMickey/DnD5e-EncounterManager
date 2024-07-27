@@ -53,31 +53,6 @@
 			"Chain Lightning"
 		]
 	},
-	"Test3": {
-		"AC": "11",
-		"Class": "Barbarian",
-		"MaxHP": "11",
-		"Name": "Test3",
-		"Passive Perception": "11",
-		"Saves": {
-			"CHA": "11",
-			"CON": "11",
-			"DEX": "11",
-			"INT": "11",
-			"STR": "11",
-			"WIS": "11"
-		},
-		"Speed": {
-			"Climbing": "11",
-			"Flying": "11",
-			"Swimming": "11",
-			"Walking": "11"
-		},
-		"Spells": [
-			"Animal Shapes",
-			"Animate Objects"
-		]
-	},
 	"Test4": {
 		"AC": "14",
 		"Class": "Fighter",

@@ -17,6 +17,7 @@ func _on_item_list_item_activated(index):
 
 func _on_close_requested():
 	$VBoxContainer/HBoxContainer/PCInfo.clear()
+	self.move_to_center()
 	self.visible = false
 
 func _on_remove_pressed():
