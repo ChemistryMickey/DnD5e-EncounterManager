@@ -1,16 +1,20 @@
 {
    "Bard": {
       "Cantrips": [
+         "Blade Ward",
          "Dancing Lights",
+         "Friends",
          "Light",
          "Mage Hand",
          "Mending",
          "Message",
          "Minor Illusion",
          "Prestidigitation",
-         "True Strike"
+         "True Strike",
+         "Vicious Mockery"
       ],
       "1st Level": [
+         "Animal Friendship",
          "Bane",
          "Charm Person",
          "Comprehend Languages",
@@ -21,13 +25,13 @@
          "Feather Fall",
          "Healing Word",
          "Heroism",
-         "Hideous Laughter",
          "Identify",
          "Illusory Script",
          "Longstrider",
          "Silent Image",
          "Sleep",
          "Speak with Animals",
+         "Tasha's Hideous Laughter",
          "Thunderwave",
          "Unseen Servant"
       ],
@@ -35,6 +39,8 @@
          "Animal Messenger",
          "Blindness/Deafness",
          "Calm Emotions",
+         "Cloud of Daggers",
+         "Crown of Madness",
          "Detect Thoughts",
          "Enhance Ability",
          "Enthrall",
@@ -46,6 +52,7 @@
          "Locate Animals or Plants",
          "Locate Object",
          "Magic Mouth",
+         "Phantasmal Force",
          "See Invisibility",
          "Shatter",
          "Silence",
@@ -57,8 +64,10 @@
          "Clairvoyance",
          "Dispel Magic",
          "Fear",
+         "Feign Death",
          "Glyph of Warding",
          "Hypnotic Pattern",
+         "Leomund's Tiny Hut",
          "Major Image",
          "Nondetection",
          "Plant Growth",
@@ -66,10 +75,10 @@
          "Speak with Dead",
          "Speak with Plants",
          "Stinking Cloud",
-         "Tiny Hut",
          "Tongues"
       ],
       "4th Level": [
+         "Compulsion",
          "Confusion",
          "Dimension Door",
          "Freedom of Movement",
@@ -100,17 +109,17 @@
          "Eyebite",
          "Find the Path",
          "Guards and Wards",
-         "Irresistible Dance",
          "Mass Suggestion",
+         "Otto's Irresistible Dance",
          "Programmed Illusion",
          "True Seeing"
       ],
       "7th Level": [
-         "Arcane Sword",
          "Etherealness",
          "Forcecage",
-         "Magnificent Mansion",
          "Mirage Arcane",
+         "Mordenkainen's Magnificent Mansion",
+         "Mordenkainen's Sword",
          "Project Image",
          "Regenerate",
          "Resurrection",
@@ -126,6 +135,7 @@
       ],
       "9th Level": [
          "Foresight",
+         "Power Word Heal",
          "Power Word Kill",
          "True Polymorph"
       ]
@@ -137,6 +147,7 @@
          "Mending",
          "Resistance",
          "Sacred Flame",
+         "Spare the Dying",
          "Thaumaturgy"
       ],
       "1st Level": [
@@ -202,6 +213,7 @@
          "Death Ward",
          "Divination",
          "Freedom of Movement",
+         "Guardian of Faith",
          "Locate Creature",
          "Stone Shape"
       ],
@@ -257,13 +269,17 @@
    },
    "Druid": {
       "Cantrips": [
+         "Druidcraft",
          "Guidance",
          "Mending",
+         "Poison Spray",
          "Produce Flame",
          "Resistance",
-         "Shillelagh"
+         "Shillelagh",
+         "Thorn Whip"
       ],
       "1st Level": [
+         "Animal Friendship",
          "Charm Person",
          "Create or Destroy Water",
          "Cure Wounds",
@@ -272,6 +288,7 @@
          "Entangle",
          "Faerie Fire",
          "Fog Cloud",
+         "Goodberry",
          "Healing Word",
          "Jump",
          "Longstrider",
@@ -282,6 +299,7 @@
       "2nd Level": [
          "Animal Messenger",
          "Barkskin",
+         "Beast Sense",
          "Darkvision",
          "Enhance Ability",
          "Find Traps",
@@ -303,6 +321,7 @@
          "Conjure Animals",
          "Daylight",
          "Dispel Magic",
+         "Feign Death",
          "Meld into Stone",
          "Plant Growth",
          "Protection from Energy",
@@ -321,6 +340,7 @@
          "Dominate Beast",
          "Freedom of Movement",
          "Giant Insect",
+         "Grasping Vine",
          "Hallucinatory Terrain",
          "Ice Storm",
          "Locate Creature",
@@ -369,7 +389,8 @@
          "Control Weather",
          "Earthquake",
          "Feeblemind",
-         "Sunburst"
+         "Sunburst",
+         "Tsunami"
       ],
       "9th Level": [
          "Foresight",
@@ -383,6 +404,7 @@
       "1st Level": [
          "Bless",
          "Command",
+         "Compelled Duel",
          "Cure Wounds",
          "Detect Evil and Good",
          "Detect Magic",
@@ -391,10 +413,14 @@
          "Heroism",
          "Protection from Evil and Good",
          "Purify Food and Drink",
-         "Shield of Faith"
+         "Searing Smite",
+         "Shield of Faith",
+         "Thunderous Smite",
+         "Wrathful Smite"
       ],
       "2nd Level": [
          "Aid",
+         "Branding Smite",
          "Find Steed",
          "Lesser Restoration",
          "Locate Object",
@@ -403,19 +429,29 @@
          "Zone of Truth"
       ],
       "3rd Level": [
+         "Aura of Vitality",
+         "Blinding Smite",
          "Create Food and Water",
+         "Crusader's Mantle",
          "Daylight",
          "Dispel Magic",
+         "Elemental Weapon",
          "Magic Circle",
          "Remove Curse",
          "Revivify"
       ],
       "4th Level": [
+         "Aura of Life",
+         "Aura of Purity",
          "Banishment",
          "Death Ward",
-         "Locate Creature"
+         "Locate Creature",
+         "Staggering Smite"
       ],
       "5th Level": [
+         "Banishing Smite",
+         "Circle of Power",
+         "Destructive Smite",
          "Dispel Evil and Good",
          "Geas",
          "Raise Dead"
@@ -429,10 +465,14 @@
       "Cantrips": [],
       "1st Level": [
          "Alarm",
+         "Animal Friendship",
          "Cure Wounds",
          "Detect Magic",
          "Detect Poison and Disease",
          "Fog Cloud",
+         "Goodberry",
+         "Hall of Thorns",
+         "Hunter's Mark",
          "Jump",
          "Longstrider",
          "Speak with Animals"
@@ -440,6 +480,7 @@
       "2nd Level": [
          "Animal Messenger",
          "Barkskin",
+         "Cordon of Arrows",
          "Darkvision",
          "Find Traps",
          "Lesser Restoration",
@@ -452,7 +493,9 @@
       ],
       "3rd Level": [
          "Conjure Animals",
+         "Conjure Barrage",
          "Daylight",
+         "Lightning Arrow",
          "Nondetection",
          "Plant Growth",
          "Protection from Energy",
@@ -464,11 +507,14 @@
       "4th Level": [
          "Conjure Woodland Beings",
          "Freedom of Movement",
+         "Grasping Vine",
          "Locate Creature",
          "Stoneskin"
       ],
       "5th Level": [
          "Commune with Nature",
+         "Conjure Volley",
+         "Swift Quiver",
          "Tree Stride"
       ],
       "6th Level": [],
@@ -479,13 +525,17 @@
    "Sorcerer": {
       "Cantrips": [
          "Acid Splash",
+         "Blade Ward",
          "Chill Touch",
          "Dancing Lights",
+         "Fire Bolt",
+         "Friends",
          "Light",
          "Mage Hand",
          "Mending",
          "Message",
          "Minor Illusion",
+         "Poison Spray",
          "Prestidigitation",
          "Ray of Frost",
          "Shocking Grasp",
@@ -494,6 +544,7 @@
       "1st Level": [
          "Burning Hands",
          "Charm Person",
+         "Chromatic Orb",
          "Color Spray",
          "Comprehend Languages",
          "Detect Magic",
@@ -505,15 +556,19 @@
          "Jump",
          "Mage Armor",
          "Magic Missile",
+         "Ray of Sickness",
          "Shield",
          "Silent Image",
          "Sleep",
-         "Thunderwave"
+         "Thunderwave",
+         "Witch Bolt"
       ],
       "2nd Level": [
          "Alter Self",
          "Blindness/Deafness",
          "Blur",
+         "Cloud of Daggers",
+         "Crown of Madness",
          "Darkness",
          "Darkvision",
          "Detect Thoughts",
@@ -536,6 +591,7 @@
       "3rd Level": [
          "Blink",
          "Clairvoyance",
+         "Counterspell",
          "Daylight",
          "Dispel Magic",
          "Fear",
@@ -580,6 +636,7 @@
          "Wall of Stone"
       ],
       "6th Level": [
+         "Arcane Gate",
          "Chain Lightning",
          "Circle of Death",
          "Disintegrate",
@@ -655,10 +712,12 @@
          "Suggestion"
       ],
       "3rd Level": [
+         "Counterspell",
          "Dispel Magic",
          "Fear",
          "Fly",
          "Gaseous Form",
+         "Hunger of Hadar",
          "Hypnotic Pattern",
          "Magic Circle",
          "Major Image",
@@ -679,6 +738,7 @@
          "Scrying"
       ],
       "6th Level": [
+         "Arcane Gate",
          "Circle of Death",
          "Conjure Fey",
          "Create Undead",
@@ -711,13 +771,17 @@
    "Wizard": {
       "Cantrips": [
          "Acid Splash",
+         "Blade Ward",
          "Chill Touch",
          "Dancing Lights",
+         "Fire Bolt",
+         "Friends",
          "Light",
          "Mage Hand",
          "Mending",
          "Message",
          "Minor Illusion",
+         "Poison Spray",
          "Prestidigitation",
          "Ray of Frost",
          "Shocking Grasp",
@@ -726,20 +790,18 @@
       "1st Level": [
          "Alarm",
          "Burning Hands",
-         "Catapult",
          "Charm Person",
+         "Chromatic Orb",
          "Color Spray",
          "Comprehend Languages",
          "Detect Magic",
          "Disguise Self",
-         "Dissonant Whispers",
          "Expeditious Retreat",
          "False Life",
          "Feather Fall",
-         "Floating Disk",
+         "Find Familiar",
          "Fog Cloud",
          "Grease",
-         "Hideous Laughter",
          "Identify",
          "Illusory Script",
          "Jump",
@@ -747,20 +809,23 @@
          "Mage Armor",
          "Magic Missile",
          "Protection from Evil and Good",
+         "Ray of Sickness",
          "Shield",
          "Silent Image",
          "Sleep",
+         "Tasha's Hideous Laughter",
+         "Tenser's Floating Disk",
          "Thunderwave",
-         "Unseen Servant"
+         "Unseen Servant",
+         "Witch Bolt"
       ],
       "2nd Level": [
-         "Acid Arrow",
          "Alter Self",
          "Arcane Lock",
-         "Arcanist's Magic Aura",
          "Blindness/Deafness",
          "Blur",
          "Continual Flame",
+         "Crown of Madness",
          "Darkness",
          "Darkvision",
          "Detect Thoughts",
@@ -775,13 +840,15 @@
          "Locate Object",
          "Magic Mouth",
          "Magic Weapon",
+         "Melf's Acid Arrow",
          "Mirror Image",
          "Misty Step",
+         "Nystul's Magic Aura",
+         "Phantasmal Force",
          "Ray of Enfeeblement",
          "Rope Trick",
          "Scorching Ray",
          "See Invisibility",
-         "Shadow Blade",
          "Shatter",
          "Spider Climb",
          "Suggestion",
@@ -792,6 +859,7 @@
          "Bestow Curse",
          "Blink",
          "Clairvoyance",
+         "Counterspell",
          "Dispel Magic",
          "Fear",
          "Fireball",
@@ -800,6 +868,7 @@
          "Glyph of Warding",
          "Haste",
          "Hypnotic Pattern",
+         "Leomund's Tiny Hut",
          "Lightning Bolt",
          "Magic Circle",
          "Major Image",
@@ -811,7 +880,6 @@
          "Sleet Storm",
          "Slow",
          "Stinking Cloud",
-         "Tiny Hut",
          "Tongues",
          "Vampiric Touch",
          "Water Breathing"
@@ -819,31 +887,30 @@
       "4th Level": [
          "Arcane Eye",
          "Banishment",
-         "Black Tentacles",
          "Blight",
          "Confusion",
          "Conjure Minor Elementals",
          "Control Water",
          "Dimension Door",
          "Fabricate",
-         "Faithful Hound",
          "Fire Shield",
          "Greater Invisibility",
          "Hallucinatory Terrain",
          "Ice Storm",
+         "Leomund's Secret Chest",
          "Locate Creature",
+         "Mordenkainen's Faithful Hound",
+         "Mordenkainen's Private Sanctum",
+         "Otiluke's Resilient Sphere",
          "Phantasmal Killer",
          "Polymorph",
-         "Private Sanctum",
-         "Resilient Sphere",
-         "Secret Chest",
          "Stone Shape",
          "Stoneskin",
          "Wall of Fire"
       ],
       "5th Level": [
          "Animate Objects",
-         "Arcane Hand",
+         "Bigby's Hand",
          "Cloudkill",
          "Cone of Cold",
          "Conjure Elemental",
@@ -858,43 +925,44 @@
          "Modify Memory",
          "Passwall",
          "Planar Binding",
+         "Rary's Telepathic Bond",
          "Scrying",
          "Seeming",
          "Telekinesis",
-         "Telepathic Bond",
          "Teleportation Circle",
          "Wall of Force",
          "Wall of Stone"
       ],
       "6th Level": [
+         "Arcane Gate",
          "Chain Lightning",
          "Circle of Death",
          "Contingency",
          "Create Undead",
          "Disintegrate",
+         "Drawmij's Instant Summons",
          "Eyebite",
          "Flesh to Stone",
-         "Freezing Sphere",
          "Globe of Invulnerability",
          "Guards and Wards",
-         "Instant Summons",
-         "Irresistible Dance",
          "Magic Jar",
          "Mass Suggestion",
          "Move Earth",
+         "Otiluke's Freezing Sphere",
+         "Otto's Irresistible Dance",
          "Programmed Illusion",
          "Sunbeam",
          "True Seeing",
          "Wall of Ice"
       ],
       "7th Level": [
-         "Arcane Sword",
          "Delayed Blast Fireball",
          "Etherealness",
          "Finger of Death",
          "Forcecage",
-         "Magnificent Mansion",
          "Mirage Arcane",
+         "Mordenkainen's Magnificent Mansion",
+         "Mordenkainen's Sword",
          "Plane Shift",
          "Prismatic Spray",
          "Project Image",
@@ -916,7 +984,9 @@
          "Maze",
          "Mind Blank",
          "Power Word Stun",
-         "Sunburst"
+         "Sunburst",
+         "Telepathy",
+         "Trap the Soul"
       ],
       "9th Level": [
          "Astral Projection",
