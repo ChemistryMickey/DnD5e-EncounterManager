@@ -1,12 +1,1 @@
-{
-	"Test Spell": {
-		"Casting Time": "1 action",
-		"Components": "V, S, M (a good computer and too much free time)",
-		"Description": "Light pierces your eyes. Touch grass and take 3 true damage.",
-		"Duration": "Concentration (10 minutes)",
-		"Is Ritual?": false,
-		"Level": "5th Level",
-		"Range": "Self (60ft AoE)",
-		"School": "Evocation"
-	}
-}
+{}
