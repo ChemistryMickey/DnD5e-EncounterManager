@@ -34,6 +34,12 @@ wrap_mode = 1
 visible = false
 layout_mode = 2
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "The general philosophy for PCs is \"PCs should manage themselves\".
+
+That being said, they can be tracked by adding them to the initiative and they're nearly identical to NPC lines.
+Because PCs persist between encounters, this program doesn't attempt to track expendables like spell slots.
+
+PCs can be added using \"Define PC\" or added/modified using the \"PC Manager\" which can be found under the \"Edit\" tab."
 editable = false
 wrap_mode = 1
 
@@ -41,6 +47,14 @@ wrap_mode = 1
 visible = false
 layout_mode = 2
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "NPCs can be defined using either \"Define NPC\" or in \"Manage NPC\".
+
+Once an NPC is defined, it is available in the \"Add NPC\" popup such that it can be added to the encounter.
+Additionally, multiple NPCs can be selected at once and multiple identical NPCs can be added using the \"# to add\" box in the lower right of the Add NPC popup.
+
+During an encounter, when it's an NPC's turn, you may use actions by clicking the action economy buttons in the lower left panel. 
+They're mostly there for reminders though (e.g. multiple attacks).
+Additionally, on an NPC's turn, the NPC info shown in the bottom right panel should be updated. There you can see the spell book/slots and all additional entered info (e.g. Legendary/Normal actions)."
 editable = false
 wrap_mode = 1
 
@@ -48,8 +62,21 @@ wrap_mode = 1
 visible = false
 layout_mode = 2
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+text = "In addition to PCs and NPCs, a \"Non-Actor\" line can be added to initiative to remember to do things like manually decrement special status effects, perform lair actions, proc spells, etc.
+
+A \"Scratch Text\" popup can be shown using either the hotkey Ctrl+T or in the Options menu.
+
+When a PC is bloodied, their name text turns red.
+When an NPC is bloodied, their \"status indicator square\" (white be default) turns red for even easier tracking.
+On death PC name text/NPC status indicator square turns black.
+You can decrement HP below 0 to track death saves.
+
+Applied statuses are complicated.
+Because of that, when adding a status to a PC or NPC, you have the option to auto-decrement the status (at the end of that character's turn). When that counter hits 0, it's automatically deleted. You can also manually delete statuses using the \"X\" button.
+"
 editable = false
 wrap_mode = 1
+scroll_vertical = 2.0
 
 [node name="About" type="TextEdit" parent="TabContainer"]
 visible = false
