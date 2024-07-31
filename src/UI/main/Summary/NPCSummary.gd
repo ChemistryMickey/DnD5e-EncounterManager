@@ -32,3 +32,5 @@ func clear():
 	Utilities.recursive_clear_text(self.get_children())
 	Utilities.recursive_clear_spinbox(self.get_children())
 	$Spells.clear()
+
+

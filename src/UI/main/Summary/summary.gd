@@ -18,7 +18,7 @@ func _ready():
 
 func _process(_delta):
 	if encounter_started:
-		_move_turn_indicator()
+		_move_turn_indicator(false)
 
 func save() -> Dictionary:
 	return {
@@ -36,6 +36,7 @@ func load_sheet(dict: Dictionary) -> void:
 	$vb/ControlButtons/Round.set_value_no_signal(dict["Current Round"])
 	
 	if dict["Current Round"] > 0:
+		encounter_started = false
 		_init_encounter()
 
 func _zero_counters():
@@ -105,33 +106,10 @@ func _handle_file(ind: int):
 	
 	Signals.emit_signal(signal_map[ind])
 
-func _on_add_non_actor_pressed():
-	var new_nonactor = non_actor_template.instantiate()
-	$vb/InfoOptions/Info/Actors.add_child(new_nonactor)
-	Signals.emit_signal("add_new_actor_to_initiative")
-
 func _end_encounter():
 	_morph_encounter_button()
 	_zero_counters()
 	encounter_started = false
-
-func _on_remove_selected_pressed():
-	var n_actors_selected = 0
-	for actor in $vb/InfoOptions/Info/Actors.get_children():
-		if actor.selected:
-			n_actors_selected += 1
-				
-	if $vb/InfoOptions/Info/Actors.get_child_count() == n_actors_selected:
-		_end_encounter()
-		
-	# Go through actors; if selected, queue free
-	for actor in $vb/InfoOptions/Info/Actors.get_children():
-		if actor.selected:
-			actor.queue_free()
-			Signals.emit_signal("remove_actor_from_initiative")
-
-func _on_add_npc_pressed():
-	Signals.emit_signal("show_add_NPC_to_initative")
 
 func _check_sufficient_actors() -> bool:
 	if $vb/InfoOptions/Info/Actors.get_child_count() == 0:
@@ -176,12 +154,13 @@ func _update_npc_info(actor_node):
 	
 	$vb/InfoOptions/ReferenceRect/OptionTray/ReferenceRect/NPCScroll/NPCSummary.clear()
 
-func _move_turn_indicator():
+func _move_turn_indicator(update_npc_info: bool = false):
 	#NOTE: Counters are 1-indexed because this will be used by humans
 	# 	Internally, however, it's all 0 indexed
 	var cur_turn = $vb/ControlButtons/Turn.value
 	var actors = $vb/InfoOptions/Info/Actors.get_children()
-	_update_npc_info(actors[cur_turn - 1])
+	if update_npc_info:
+		_update_npc_info(actors[cur_turn - 1])
 	
 	$TurnIndicator.set_global_position(actors[cur_turn - 1].global_position, false)
 
@@ -221,6 +200,47 @@ func _decrement_statuses(actor_ind: int):
 		return
 	
 	actor_node.decrement_statuses()
+	
+func _cast_spell():
+	print("TODO _cast_spell")
+	pass
+	
+func _disallow_attacks():
+	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.toggle_mode = false
+	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.flat = true
+
+func _allow_attacks():
+	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.toggle_mode = true
+	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.flat = false
+
+func _update_spell_slot_value(slot: int, val: int):
+	var cur_actor = _get_current_actor_node()
+	if cur_actor is NPC_line:
+		cur_actor.spell_slots["%d" % slot]["value"] = val
+
+# ========= Signals
+func _on_add_non_actor_pressed():
+	var new_nonactor = non_actor_template.instantiate()
+	$vb/InfoOptions/Info/Actors.add_child(new_nonactor)
+	Signals.emit_signal("add_new_actor_to_initiative")
+
+func _on_remove_selected_pressed():
+	var n_actors_selected = 0
+	for actor in $vb/InfoOptions/Info/Actors.get_children():
+		if actor.selected:
+			n_actors_selected += 1
+				
+	if $vb/InfoOptions/Info/Actors.get_child_count() == n_actors_selected:
+		_end_encounter()
+		
+	# Go through actors; if selected, queue free
+	for actor in $vb/InfoOptions/Info/Actors.get_children():
+		if actor.selected:
+			actor.queue_free()
+			Signals.emit_signal("remove_actor_from_initiative")
+
+func _on_add_npc_pressed():
+	Signals.emit_signal("show_add_NPC_to_initative")
 
 func _on_start_cont_encounter_pressed():
 	var sufficient_actors = await _check_sufficient_actors()
@@ -238,17 +258,9 @@ func _on_start_cont_encounter_pressed():
 		else:
 			$vb/ControlButtons/Turn.value += 1
 			
-	_move_turn_indicator()
+	_move_turn_indicator(true)
 	_update_num_attacks($vb/ControlButtons/Turn.value - 1)
 	Signals.emit_signal("next_turn", $vb/ControlButtons/Turn.value - 1)
-
-func _disallow_attacks():
-	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.toggle_mode = false
-	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.flat = true
-
-func _allow_attacks():
-	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.toggle_mode = true
-	$vb/InfoOptions/ReferenceRect/OptionTray/ActionScroll/ActionEconomy/Actions/hb/Attack.flat = false
 	
 func _on_attack_pressed():
 	if !encounter_started:
@@ -289,10 +301,6 @@ func _trip_reaction() -> bool:
 	
 	return cur_actor.trip_reaction()
 
-func _cast_spell():
-	print("TODO _cast_spell")
-	pass
-
 func _on_action_cast_spell_pressed():
 	if !encounter_started:
 		return
@@ -319,3 +327,30 @@ func _on_add_status_effect_pressed():
 func _on_add_status_effect_popup_close_requested():
 	$AddStatusEffectPopup.visible = false
 	$AddStatusEffectPopup.move_to_center()
+
+func _on_SS1_value_changed(value):
+	_update_spell_slot_value(1, value)
+
+func _on_SS2_value_changed(value):
+	_update_spell_slot_value(2, value)
+
+func _on_SS3_value_changed(value):
+	_update_spell_slot_value(3, value)
+
+func _on_SS4_value_changed(value):
+	_update_spell_slot_value(4, value)
+
+func _on_SS5_value_changed(value):
+	_update_spell_slot_value(5, value)
+
+func _on_SS6_value_changed(value):
+	_update_spell_slot_value(6, value)
+
+func _on_SS7_value_changed(value):
+	_update_spell_slot_value(7, value)
+
+func _on_SS8_value_changed(value):
+	_update_spell_slot_value(8, value)
+
+func _on_SS9_value_changed(value):
+	_update_spell_slot_value(9, value)
