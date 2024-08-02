@@ -4,4 +4,4 @@
 # Mickey
 test-output/
 .push-to-github.sh
-.x86
+x86/
