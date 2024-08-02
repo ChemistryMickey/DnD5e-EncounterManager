@@ -16,7 +16,7 @@ func _on_save_pressed():
 	
 	DatabaseManager.add_npc(npc_dict)
 	Signals.emit_signal("update_NPCs")
-	$a/npc_info.clear()
+	_on_close_requested()
 
 func _on_cancel_pressed():
 	_on_close_requested()

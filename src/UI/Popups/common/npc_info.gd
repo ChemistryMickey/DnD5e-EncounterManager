@@ -15,7 +15,14 @@ func populate_spells():
 func clear():
 	Utilities.recursive_clear_text(self.get_children())
 	Utilities.recursive_clear_spinbox(self.get_children())
+	_set_spell_slot_prefixes()
 	populate_spells()
+
+func _set_spell_slot_prefixes():
+	var i = 0
+	for spell_spin in $b/SpellSlots.get_children():
+		spell_spin.prefix = "%s: " % HardParams.SPELL_SLOT_NAMES[i]
+		i += 1
 
 func _on_add_spell_pressed():
 	# Remove it from the available spells list

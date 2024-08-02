@@ -76,7 +76,6 @@ Because of that, when adding a status to a PC or NPC, you have the option to aut
 "
 editable = false
 wrap_mode = 1
-scroll_vertical = 2.0
 
 [node name="About" type="TextEdit" parent="TabContainer"]
 visible = false
