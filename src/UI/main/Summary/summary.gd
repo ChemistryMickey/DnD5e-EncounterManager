@@ -16,10 +16,6 @@ func _ready():
 	if Signals.connect("update_PCs", _prep_pc_option_button): print("Unable to connect to update_PCs!")
 	_prep_pc_option_button()
 
-func _process(_delta):
-	if encounter_started:
-		_move_turn_indicator(false)
-
 func save() -> Dictionary:
 	return {
 		"Current Turn": $vb/ControlButtons/Turn.value,
@@ -51,6 +47,7 @@ func load_sheet(dict: Dictionary) -> void:
 	
 	if dict["Current Round"] > 0:
 		encounter_started = false
+		_move_turn_indicator()
 		_init_encounter()
 
 func _zero_counters():
@@ -134,7 +131,6 @@ func _check_sufficient_actors() -> bool:
 	
 func _morph_encounter_button():
 	if !encounter_started:
-		$TurnIndicator.visible = true
 		$vb/ControlButtons/StartContEncounter.text = "Next Turn"
 		$vb/ControlButtons/StartContEncounter.tooltip_text = \
 			"""
@@ -147,7 +143,6 @@ func _morph_encounter_button():
 			change turn number manually.
 			"""
 	else:
-		$TurnIndicator.visible = false
 		$vb/ControlButtons/StartContEncounter.text = "Start Encounter"
 		$vb/ControlButtons/StartContEncounter.tooltip_text = \
 			"""
@@ -175,8 +170,15 @@ func _move_turn_indicator(update_npc_info: bool = false):
 	var actors = $vb/InfoOptions/Info/Actors.get_children()
 	if update_npc_info:
 		_update_npc_info(actors[cur_turn - 1])
-	
-	$TurnIndicator.set_global_position(actors[cur_turn - 1].global_position, false)
+	if actors[cur_turn - 1] is ColorRect:
+		actors[cur_turn - 1].set_new_color(HardParams.ENCOUNTER_SELECTED)
+			
+func _reset_turn_indicator():
+	var cur_turn = $vb/ControlButtons/Turn.value
+	var actors = $vb/InfoOptions/Info/Actors.get_children()
+
+	if actors[cur_turn - 1] is ColorRect:
+		actors[cur_turn - 1].reset_color()
 
 func _update_num_attacks(actor_ind: int):
 	var actor_node = $vb/InfoOptions/Info/Actors.get_children()[actor_ind]
@@ -265,6 +267,7 @@ func _on_start_cont_encounter_pressed():
 		_init_encounter()
 	else:
 		# Decrement happens at the end of the turn, not the beginning
+		_reset_turn_indicator()
 		_decrement_statuses($vb/ControlButtons/Turn.value - 1)
 		if $vb/ControlButtons/Turn.value >= $vb/ControlButtons/Turn.max_value:
 			$vb/ControlButtons/Turn.value = 1
@@ -272,7 +275,7 @@ func _on_start_cont_encounter_pressed():
 		else:
 			$vb/ControlButtons/Turn.value += 1
 			
-	_move_turn_indicator(true)
+	_move_turn_indicator()
 	_update_num_attacks($vb/ControlButtons/Turn.value - 1)
 	Signals.emit_signal("next_turn", $vb/ControlButtons/Turn.value - 1)
 	

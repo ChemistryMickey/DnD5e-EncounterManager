@@ -8,16 +8,30 @@ var status_template = preload("res://src/UI/main/Summary/status.tscn")
 @export var actor_name: String = ""
 @export var spell_slots: Dictionary = {}
 
-var default_color = Color(1, 1, 1, 0)
-var bloodied_color = Color(1, 0.5, 0.5, 0)
+var previous_color: Color = HardParams.SELECTED
 
 func _ready():
-	self.color = default_color
+	self.color = HardParams.SELECTED
+	self.color.a = 0
+	
+func set_new_color(color_in: Color, alpha: float = -1) -> void:
+	self.previous_color = self.color
+	self.color = color_in
+	if alpha != -1:
+		self.color.a = alpha
+	
+	return
+
+func reset_color() -> void:
+	self.color = self.previous_color
+	
+	return
 	
 func reset_action_economy():
 	for button in $Info/b/b1/Actions.get_children():
 		if button is CheckButton:
 			button.button_pressed = false
+
 
 func decrement_statuses():
 	for status in $Info/StatusRect/StatusScroll/Statuses.get_children():
@@ -45,28 +59,28 @@ func trip_reaction() -> bool:
 func _on_selected_toggled(toggled_on):
 	selected = toggled_on
 	if toggled_on:
-		self.color.a = 0.3
-		default_color.a = 0.3
-		bloodied_color.a = 0.3
+		self.color.a = HardParams.SELECTED_TRANSPARENCY
+		self.previous_color = HardParams.SELECTED
+	elif self.color == HardParams.ENCOUNTER_SELECTED:
+		self.previous_color = HardParams.SELECTED
+		return
 	else:
 		self.color.a = 0
-		default_color.a = 0
-		bloodied_color.a = 0
 		
 func _on_hp_value_changed(value):
 	if value <= 0:
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(0, 0, 0))
-		self.color = default_color
+		self.color = HardParams.SELECTED
 		bloodied = false # technically not bloodied
 		$Info/b/b2/StatusColor.color = Color(0, 0, 0)
 	elif value <= ($Info/b/b1/c1/HP.max_value/2):
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(1, 0.2, 0.1))
-		self.color = bloodied_color
+		self.color = HardParams.BLOODIED
 		bloodied = true
 		$Info/b/b2/StatusColor.color = Color(1, 0, 0)
 	else:
 		$Info/b/b1/Name.add_theme_color_override("font_color", Color(1, 1, 1))
-		self.color = default_color
+		self.color = HardParams.SELECTED
 		bloodied = false
 		$Info/b/b2/StatusColor.color = Color(1, 1, 1)
 
