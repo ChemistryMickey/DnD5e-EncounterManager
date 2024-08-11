@@ -648,6 +648,13 @@ dialog_text = "No actors in encounter!
 Please add PCs, NPCs, or Non-Actors before starting the encounter."
 dialog_autowrap = true
 
+[node name="LoadErrorPopup" type="AcceptDialog" parent="."]
+title = "Sheet Load Error!"
+initial_position = 2
+size = Vector2i(300, 200)
+dialog_text = "<Placeholder>"
+dialog_autowrap = true
+
 [node name="AddBulkStatusEffectsPopup" type="Window" parent="."]
 title = "Add Bulk Status Effects"
 initial_position = 2

@@ -24,10 +24,24 @@ func save() -> Dictionary:
 	return {
 		"Current Turn": $vb/ControlButtons/Turn.value,
 		"Current Round": $vb/ControlButtons/Round.value,
-		"Current Initiative Order" : $vb/InfoOptions/Info/Actors.save()
+		"Current Initiative Order" : $vb/InfoOptions/Info/Actors.save(),
+		"Version": HardParams.VERSION
 	}
 
 func load_sheet(dict: Dictionary) -> void:
+	if "Version" not in dict.keys():
+		$LoadErrorPopup.dialog_text = "Version not present in sheet dictionary!\nCheck your JSON!"
+		$LoadErrorPopup.visible = true
+		return
+	
+	# Check version number
+	var loaded_major_version: int = int(dict["Version"].split(".")[0])
+	var cur_major_version: int = int(HardParams.VERSION.split(".")[0])
+	if loaded_major_version != cur_major_version:
+		$LoadErrorPopup.dialog_text = "Unable to load sheet!\nCurrent Version: %s\nSheet Version: %s" % [HardParams.VERSION, dict["Version"]]
+		$LoadErrorPopup.visible = true
+		return
+	
 	_zero_counters()
 	# This causes the turn max val to go up
 	$vb/InfoOptions/Info/Actors.load_sheet(dict)
