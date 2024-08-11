@@ -8,6 +8,11 @@ func _ready():
 	if Signals.connect("add_NPC_to_initiative", _add_npc_to_initiative): print("Unable to connect to add_NPC_to_initiative!")
 	Signals.connect("next_turn", _reset_action_economy)
 	
+func clear() -> void:
+	for child in self.get_children():
+		child.queue_free()
+		Signals.emit_signal("remove_actor_from_initiative")
+
 func _reset_action_economy(ind: int):
 	if ind >= self.get_child_count():
 		print("How did you get here? Requested ind: %d, N_children: %d" % [ind, self.get_child_count()])
@@ -32,9 +37,7 @@ func save() -> Array:
 	return actors
 	
 func load_sheet(dict: Dictionary) -> void:
-	for child in self.get_children():
-		child.queue_free()
-		Signals.emit_signal("remove_actor_from_initiative")
+	self.clear()
 		
 	for entry in dict["Current Initiative Order"]:
 		var new_line

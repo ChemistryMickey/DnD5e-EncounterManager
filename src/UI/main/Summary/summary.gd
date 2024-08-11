@@ -42,6 +42,21 @@ func load_sheet(dict: Dictionary) -> void:
 	# This causes the turn max val to go up
 	$vb/InfoOptions/Info/Actors.load_sheet(dict)
 	
+	# Check that all PCs and NPCs are in the dicts
+	for actor in $vb/InfoOptions/Info/Actors.get_children():
+		if actor is NPC_line:
+			if actor.actor_name not in DatabaseManager.custom_jsons["NPCs"]:
+				$vb/InfoOptions/Info/Actors.clear()
+				$LoadErrorPopup.dialog_text = "%s not in NPC Database! Please add it" % actor.actor_name
+				$LoadErrorPopup.visible = true
+				return
+		elif actor is PC_line:
+			if actor.actor_name not in DatabaseManager.custom_jsons["PCs"]:
+				$vb/InfoOptions/Info/Actors.clear()
+				$LoadErrorPopup.dialog_text = "%s not in PC Database! Please add it" % actor.actor_name
+				$LoadErrorPopup.visible = true
+				return
+	
 	$vb/ControlButtons/Turn.set_value_no_signal(dict["Current Turn"])
 	$vb/ControlButtons/Round.set_value_no_signal(dict["Current Round"])
 	

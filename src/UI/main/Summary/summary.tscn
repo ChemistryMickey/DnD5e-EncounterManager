@@ -639,6 +639,7 @@ dialog_autowrap = true
 title = "Sheet Load Error!"
 initial_position = 2
 size = Vector2i(300, 200)
+exclusive = false
 dialog_text = "<Placeholder>"
 dialog_autowrap = true
 
