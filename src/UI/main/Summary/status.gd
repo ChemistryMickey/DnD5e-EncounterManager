@@ -3,6 +3,10 @@ extends HBoxContainer
 
 @export var auto_update: bool = false
 
+func _ready():
+	if $RemainingTurns.value == -1:
+		$RemainingTurns.visible = false
+
 func decrement():
 	$RemainingTurns.value -= 1
 	if $RemainingTurns.value == 0:
