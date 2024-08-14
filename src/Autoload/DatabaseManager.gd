@@ -6,7 +6,7 @@ var base_jsons : Dictionary = {}
 var custom_jsons: Dictionary = {}
 
 const base_dir: String = "res://databases/base"
-const custom_dir: String = "res://databases/custom"
+const custom_dir: String = "user://databases/custom"
 
 func _ready() -> void:
 	load_databases()
@@ -38,6 +38,8 @@ func remove_npc(npc_name: String) -> void:
 func load_databases() -> void:
 	Utilities.load_jsons_from_dir(base_dir, json_dicts)
 	
+	if not DirAccess.dir_exists_absolute(custom_dir):
+		_make_default_custom_dicts()
 	var custom = {}
 	Utilities.load_jsons_from_dir(custom_dir, custom)
 	
@@ -127,3 +129,13 @@ func calc_col_width(col_name: String, column: Array) -> int:
 		max_len = len(col_name)
 	
 	return max_len
+	
+func _make_default_custom_dicts() -> void:
+	DirAccess.make_dir_recursive_absolute(custom_dir)
+	const needed_jsons = ["PCs", "NPCs", "conditions", "spell-descriptions", "spells-by-class"]
+	
+	for needed_json in needed_jsons:
+		var path = "/".join([custom_dir, needed_json + ".json"])
+		print("Making path %s" % path)
+		Utilities.output_json(path, {})
+	return
