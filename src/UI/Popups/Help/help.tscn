@@ -93,6 +93,5 @@ If you find this valuable and want to help support, feel free to buy me a coffee
 Thanks to my kind DM friends who've play-tested this tool and offered great feedback. I'm incapable of incorporating it all though so if there are any good parts, it's probably their contribution and rough edges are my own design inadequacies."
 editable = false
 wrap_mode = 1
-scroll_vertical = 10.0
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
